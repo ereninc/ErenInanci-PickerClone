@@ -7,20 +7,20 @@ public class PlayerController : ControllerBaseModel
     [SerializeField] private PointerController pointerController;
     [Header("Movement")]
     public float ForwardSpeed;
-    public float RotationSpeed;
     public float ExtraForwardSpeed;
-    public int State;
-    [SerializeField] private Vector3 movePosition;
-    [SerializeField] private float sensitive;
+    [SerializeField] private Rigidbody rigid;
+    [SerializeField] private float roadXLimit;
     [SerializeField] private float xPosition;
     [SerializeField] private float lastXPosition;
-    [SerializeField] private float roadXLimit;
-    [SerializeField] Transform character; //CHANGE THIS TO CHARACTERMODEL
-    float xPos;
+    [SerializeField] private float sensitive;
+    [SerializeField] private Vector3 movePosition;
+    private float xPos;
+    private float xDiff;
 
     public override void Initialize()
     {
         base.Initialize();
+        ExtraForwardSpeed = 0;
     }
 
     public override void ControllerUpdate(GameStates currentState)
@@ -28,33 +28,36 @@ public class PlayerController : ControllerBaseModel
         base.ControllerUpdate(currentState);
         if (currentState == GameStates.Game)
         {
-            movementUpdate();
             pointerController.ControllerUpdate();
         }
     }
 
-    public void OnPointerDown() 
-    { 
-        lastXPosition = xPosition;
+    public void OnPointerDown()
+    {
+        lastXPosition = pointerController.PointerDownPosition.x;
     }
 
-    public void OnPointer() 
+    public void OnPointer()
     {
-        xPosition = lastXPosition + pointerController.DeltaPosition.x * sensitive;
-        xPosition = Mathf.Clamp(xPosition, -roadXLimit, roadXLimit);
+        xDiff = pointerController.PointerPosition.x - lastXPosition;
+        lastXPosition = pointerController.PointerPosition.x;
     }
 
-    public void OnPointerUp() 
-    {
-        lastXPosition = xPosition;
-    }
+    public void OnPointerUp(){ }
 
     private void movementUpdate()
     {
-        xPos = xPosition;
-        character.localPosition = Vector3.MoveTowards(character.localPosition, new Vector3(xPos, 0, 0), 0.5f);
-        movePosition = new Vector3(0, 0, transform.position.z + ((1 + ExtraForwardSpeed) * ForwardSpeed * Time.deltaTime));
-        transform.position = movePosition;
-        Debug.Log("UPDATE");
+        xPos = transform.position.x + xDiff * Time.deltaTime * sensitive;
+        xPos = Mathf.Clamp(xPos, -roadXLimit, roadXLimit);
+        movePosition = new Vector3(xPos, transform.position.y, transform.position.z + (ForwardSpeed + ExtraForwardSpeed) * Time.fixedDeltaTime);
+        rigid.MovePosition(movePosition);
+    }
+
+    private void FixedUpdate()
+    {
+        if (GameController.CurrentState == GameStates.Game)
+        {
+            movementUpdate();
+        }
     }
 }
