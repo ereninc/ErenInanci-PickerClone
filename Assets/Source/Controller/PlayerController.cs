@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class PlayerController : ControllerBaseModel
 {
+    public static PlayerController Instance;
     [SerializeField] private PointerController pointerController;
     [Header("Movement")]
     public float ForwardSpeed;
     public float ExtraForwardSpeed;
     [SerializeField] private Rigidbody rigid;
     [SerializeField] private float roadXLimit;
-    [SerializeField] private float xPosition;
-    [SerializeField] private float lastXPosition;
     [SerializeField] private float sensitive;
     [SerializeField] private Vector3 movePosition;
+    private float lastXPosition;
     private float xPos;
     private float xDiff;
 
     public override void Initialize()
     {
         base.Initialize();
+        if (Instance != null)
+        {
+            Destroy(Instance);
+        }
+        else
+        {
+            Instance = this;
+        }
         ExtraForwardSpeed = 0;
     }
 
@@ -49,7 +57,8 @@ public class PlayerController : ControllerBaseModel
     {
         xPos = transform.position.x + xDiff * Time.deltaTime * sensitive;
         xPos = Mathf.Clamp(xPos, -roadXLimit, roadXLimit);
-        movePosition = new Vector3(xPos, transform.position.y, transform.position.z + (ForwardSpeed + ExtraForwardSpeed) * Time.fixedDeltaTime);
+        movePosition = new Vector3(xPos, transform.position.y, 
+            transform.position.z + (ForwardSpeed + ExtraForwardSpeed) * Time.fixedDeltaTime);
         rigid.MovePosition(movePosition);
     }
 
