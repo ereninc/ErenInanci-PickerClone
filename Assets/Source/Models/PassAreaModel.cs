@@ -8,10 +8,12 @@ public class PassAreaModel : ObjectModel
     [SerializeField] private int maxPickableCount;
     [SerializeField] private int passedCounter;
     [SerializeField] private TextMeshPro passedCounterText;
+    private bool isPassed;
 
     public override void Initialize()
     {
         base.Initialize();
+        isPassed = false;
         passedCounter = 0;
         passedCounterText.text = passedCounter.ToString() + " / " + maxPickableCount.ToString();
     }
@@ -26,14 +28,18 @@ public class PassAreaModel : ObjectModel
         if (passedCounter >= maxPickableCount)
         {
             OnPassedArea();
+            isPassed = true;
             return true;
         }
         else
         {
             OnFailArea();
+            isPassed = false;
             return false;
         }
     }
+
+    public bool IsPassed() { return isPassed; }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -47,5 +53,6 @@ public class PassAreaModel : ObjectModel
     {
         passedCounter++;
         passedCounterText.text = passedCounter.ToString() + " / " + maxPickableCount.ToString();
+        CheckArea();
     }
 }

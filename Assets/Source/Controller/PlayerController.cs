@@ -13,8 +13,8 @@ public class PlayerController : ControllerBaseModel
     [SerializeField] private float roadXLimit;
     [SerializeField] private float sensitive;
     [SerializeField] private Vector3 movePosition;
+    [SerializeField] private float xPos;
     private float lastXPosition;
-    private float xPos;
     private float xDiff;
 
     public override void Initialize()
@@ -52,6 +52,22 @@ public class PlayerController : ControllerBaseModel
     }
 
     public void OnPointerUp(){ }
+
+    [EditorButton]
+    public void OnEnterPassArea() 
+    {
+        ForwardSpeed = 0f;
+        ExtraForwardSpeed = 0f;
+        xPos = 0f;
+    }
+
+    [EditorButton]
+    public void OnExitPassArea() 
+    {
+        ForwardSpeed = 5f;
+        ExtraForwardSpeed = 0f;
+        xPos = 0f;
+    }
 
     private void movementUpdate()
     {

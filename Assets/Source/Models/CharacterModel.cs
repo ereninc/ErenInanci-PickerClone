@@ -10,16 +10,26 @@ public class CharacterModel : ObjectModel
         {
             Debug.Log("STOP");
             PassAreaModel passArea = other.GetComponent<PassAreaModel>();
-            PlayerController.Instance.ForwardSpeed = 0f;
-            checkArea(passArea);
+            onEnterPassArea();
+            this.Invoke(() => checkArea(passArea), 2f);
         }
     }
 
-    private void checkArea(PassAreaModel passArea) 
+    private void onEnterPassArea()
     {
-        if (passArea.CheckArea())
+        PlayerController.Instance.OnEnterPassArea();
+    }
+
+    private void onExitPassArea() 
+    {
+        PlayerController.Instance.OnExitPassArea();
+    }
+
+    private void checkArea(PassAreaModel passArea)
+    {
+        if (passArea.IsPassed())
         {
-            PlayerController.Instance.ForwardSpeed = 5f;
+            onExitPassArea();
         }
         else
         {
