@@ -9,7 +9,21 @@ public class CharacterModel : ObjectModel
         if (other.CompareTag("PassArea"))
         {
             Debug.Log("STOP");
+            PassAreaModel passArea = other.GetComponent<PassAreaModel>();
             PlayerController.Instance.ForwardSpeed = 0f;
+            checkArea(passArea);
+        }
+    }
+
+    private void checkArea(PassAreaModel passArea) 
+    {
+        if (passArea.CheckArea())
+        {
+            PlayerController.Instance.ForwardSpeed = 5f;
+        }
+        else
+        {
+            Debug.Log("LEVEL FAILED");
         }
     }
 }

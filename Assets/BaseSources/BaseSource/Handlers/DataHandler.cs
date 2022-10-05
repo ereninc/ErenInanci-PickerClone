@@ -55,9 +55,8 @@ public class DataHandler : HandlerBaseModel
             if (File.Exists(targetPath) == false)
             {
                 Debug.Log("Creating DataModel: " + targetPath);
-                using StreamWriter outfile =
-                    new StreamWriter(targetPath);
-                outfile.Write(sampleDataModelText);
+                //using StreamWriter outfile = new StreamWriter(targetPath);
+                //outfile.Write(sampleDataModelText);
             }
             else
                 Debug.LogError("There is a data model with the same name!");

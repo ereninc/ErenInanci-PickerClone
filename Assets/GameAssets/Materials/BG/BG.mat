@@ -8,7 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BG
-  m_Shader: {fileID: -6465566751694194690, guid: d9ee5b72f54bbf14786fe0a178f8d538, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: d9ee5b72f54bbf14786fe0a178f8d538,
+    type: 3}
   m_ShaderKeywords: _ENVIRONMENTREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -52,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 6d1046c174360bb4a9e06c6d683bb2de, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -116,15 +117,16 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_2929345c51a24e21b3fc2bbf69d9b026: {r: 1, g: 1, b: 1, a: 1}
-    - Color_3a4e40911dce48de8cef5b9da0d2d2a7: {r: 0.49808654, g: 0.76510656, b: 0.8584906, a: 1}
-    - Color_ed4c3f920a5e43e2bc0b5ac95a193294: {r: 0.031372547, g: 0.5143801, b: 1, a: 1}
+    - Color_3a4e40911dce48de8cef5b9da0d2d2a7: {r: 0.49808654, g: 0.76510656, b: 0.8584906,
+        a: 1}
+    - Color_ed4c3f920a5e43e2bc0b5ac95a193294: {r: 0.031372547, g: 0.5143801, b: 1,
+        a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BottomColor: {r: 0, g: 0.43137255, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TopColor: {r: 0, g: 0.6784314, b: 1, a: 1}
-  m_BuildTextureStacks: []
 --- !u!114 &8588043498361474098
 MonoBehaviour:
   m_ObjectHideFlags: 11

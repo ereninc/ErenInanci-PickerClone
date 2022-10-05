@@ -16,23 +16,36 @@ public class PassAreaModel : ObjectModel
         passedCounterText.text = passedCounter.ToString() + " / " + maxPickableCount.ToString();
     }
 
-    public void OnPickableEnter()
-    {
-        passedCounter++;
-        passedCounterText.text = passedCounter.ToString() + " / " + maxPickableCount.ToString();
-    }
-
     //SEND BALLS TO OBJECT POOL & INCREASE ROAD HEIGHT & OPEN ROAD LOCK
-    public void OnPassedArea()
-    {
+    public void OnPassedArea() { }
 
+    public void OnFailArea() { }
+
+    public bool CheckArea()
+    {
+        if (passedCounter >= maxPickableCount)
+        {
+            OnPassedArea();
+            return true;
+        }
+        else
+        {
+            OnFailArea();
+            return false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Pickable"))
         {
-            OnPickableEnter();
+            onPickableEnter();
         }
+    }
+
+    private void onPickableEnter()
+    {
+        passedCounter++;
+        passedCounterText.text = passedCounter.ToString() + " / " + maxPickableCount.ToString();
     }
 }
