@@ -11,4 +11,9 @@ public class PickableModel : ObjectModel
     {
         gfxs[Id].SetActiveGameObject(true);
     }
+
+    public void OnEnterPassArea() 
+    {
+        this.SetActiveGameObject(false);
+    }
 }

@@ -8,18 +8,28 @@ public class PassAreaModel : ObjectModel
     [SerializeField] private int maxPickableCount;
     [SerializeField] private int passedCounter;
     [SerializeField] private TextMeshPro passedCounterText;
-    private bool isPassed;
+    [SerializeField] private PassAreaVisualModel passAreaVisualModel;
+
+    private List<PickableModel> pickables = new List<PickableModel>();
 
     public override void Initialize()
     {
         base.Initialize();
-        isPassed = false;
+        //pickables = new List<PickableModel>();
+        passAreaVisualModel.Initialize();
         passedCounter = 0;
         passedCounterText.text = passedCounter.ToString() + " / " + maxPickableCount.ToString();
     }
 
     //SEND BALLS TO OBJECT POOL & INCREASE ROAD HEIGHT & OPEN ROAD LOCK
-    public void OnPassedArea() { }
+    public void OnPassedArea() 
+    {
+        passAreaVisualModel.OnPassed();
+        for (int i = 0; i < pickables.Count; i++)
+        {
+            pickables[i].OnEnterPassArea();
+        }
+    }
 
     public void OnFailArea() { }
 
@@ -28,23 +38,20 @@ public class PassAreaModel : ObjectModel
         if (passedCounter >= maxPickableCount)
         {
             OnPassedArea();
-            isPassed = true;
             return true;
         }
         else
         {
             OnFailArea();
-            isPassed = false;
             return false;
         }
     }
-
-    public bool IsPassed() { return isPassed; }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Pickable"))
         {
+            pickables.Add(other.GetComponent<PickableModel>());
             onPickableEnter();
         }
     }
@@ -53,6 +60,5 @@ public class PassAreaModel : ObjectModel
     {
         passedCounter++;
         passedCounterText.text = passedCounter.ToString() + " / " + maxPickableCount.ToString();
-        CheckArea();
     }
 }
