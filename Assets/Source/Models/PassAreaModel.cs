@@ -15,10 +15,17 @@ public class PassAreaModel : ObjectModel
     public override void Initialize()
     {
         base.Initialize();
-        //pickables = new List<PickableModel>();
+        pickables = new List<PickableModel>();
         passAreaVisualModel.Initialize();
         passedCounter = 0;
         passedCounterText.text = passedCounter.ToString() + " / " + maxPickableCount.ToString();
+    }
+
+    public void OnSpawn(int passCount, Vector3 position) 
+    {
+        maxPickableCount = passCount;
+        transform.position = position;
+        this.SetActiveGameObject(true);
     }
 
     //SEND BALLS TO OBJECT POOL & INCREASE ROAD HEIGHT & OPEN ROAD LOCK

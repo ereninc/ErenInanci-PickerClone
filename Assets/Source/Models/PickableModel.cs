@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PickableModel : ObjectModel
 {
-    public int Id;
-    [SerializeField] private List<Transform> gfxs;
-
-    public void OnSpawn(int Id) 
+    public void OnSpawn(Transform targetParent, Vector3 position) 
     {
-        gfxs[Id].SetActiveGameObject(true);
+        transform.SetParent(targetParent);
+        transform.position = position;
+        this.SetActiveGameObject(true);
     }
 
     public void OnEnterPassArea() 
