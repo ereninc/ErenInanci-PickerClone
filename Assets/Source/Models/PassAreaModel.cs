@@ -21,7 +21,7 @@ public class PassAreaModel : ObjectModel
         passedCounterText.text = passedCounter.ToString() + " / " + maxPickableCount.ToString();
     }
 
-    public void OnSpawn(int passCount, Vector3 position) 
+    public void OnSpawn(int passCount, Vector3 position)
     {
         maxPickableCount = passCount;
         transform.position = position;

@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5118376696573472419}
   - component: {fileID: 5118376696573472418}
-  - component: {fileID: 5118376696573472417}
+  - component: {fileID: 8905045938536537232}
   m_Layer: 0
   m_Name: RoadModel
   m_TagString: Untagged
@@ -139,10 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac6f7d5c1bfdfa4080a8255c5d251ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 0
-  pickables: []
-  PickableParent: {fileID: 7814753957816430664}
---- !u!65 &5118376696573472417
+  NextRoad: {fileID: 0}
+--- !u!65 &8905045938536537232
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,10 +148,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5118376696573472420}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 1, z: 15}
+  m_Size: {x: 5, y: 1, z: 30}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5118376697486540073
 GameObject:
@@ -259,6 +257,7 @@ GameObject:
   - component: {fileID: 5118376697655083246}
   - component: {fileID: 5118376697655083247}
   - component: {fileID: 5118376697655083248}
+  - component: {fileID: 2080709064145981540}
   m_Layer: 0
   m_Name: RoadGFX
   m_TagString: Untagged
@@ -275,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 5118376697655083250}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 15}
+  m_LocalScale: {x: 5, y: 1, z: 30}
   m_Children:
   - {fileID: 5118376695713387040}
   - {fileID: 5118376697486540072}
@@ -329,6 +328,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &2080709064145981540
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5118376697655083250}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5118376697734047355
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,135 +13,17 @@ MonoBehaviour:
   m_Name: Level0
   m_EditorClassIdentifier: 
   RoadDatas:
-  - Id: 0
-    Position: {x: 0, y: -0.7, z: 0}
-    Pickables:
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -4.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -3.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -2.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -1.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -0.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 0.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 1.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 2.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 3.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 4.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -4.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -3.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -2.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -1.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -0.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 0.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 1.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 2.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 3.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 4.5}
-  - Id: 0
-    Position: {x: 0, y: -0.7, z: 15}
-    Pickables:
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -4.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -3.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -2.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -1.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -0.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 0.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 1.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 2.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 3.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 4.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -4.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -3.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -2.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -1.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -0.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 0.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 1.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 2.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 3.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 4.5}
-  - Id: 0
-    Position: {x: 0, y: -0.7, z: 30}
-    Pickables:
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -4.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -3.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -2.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -1.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: -0.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 0.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 1.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 2.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 3.5}
-    - TypeId: 0
-      Position: {x: -0.37, y: 0.7, z: 4.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -4.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -3.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -2.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -1.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: -0.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 0.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 1.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 2.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 3.5}
-    - TypeId: 0
-      Position: {x: 0.38, y: 0.7, z: 4.5}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 30}
+  - {x: 0, y: 0, z: 65}
+  - {x: 0, y: 0, z: 95}
+  - {x: 0, y: 0, z: 130}
+  - {x: 0, y: 0, z: 160}
+  - {x: 0, y: 0, z: 195}
   PassAreaDatas:
   - PassCount: 15
-    Position: {x: 0, y: -1.7, z: 40}
+    Position: {x: 0, y: -1, z: 52.5}
+  - PassCount: 12
+    Position: {x: 0, y: -1, z: 117.5}
+  - PassCount: 20
+    Position: {x: 0, y: -1, z: 182.5}

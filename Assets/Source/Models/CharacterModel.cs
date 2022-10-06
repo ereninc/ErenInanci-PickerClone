@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class CharacterModel : ObjectModel
 {
+    [SerializeField] private FinishModel finishline;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PassArea"))
+        switch (other.tag)
         {
-            PassAreaModel passArea = other.GetComponent<PassAreaModel>();
-            onEnterPassArea();
-            this.Invoke(() => checkArea(passArea), 2f);
+            case "PassArea":
+                PassAreaModel passArea = other.GetComponent<PassAreaModel>();
+                onEnterPassArea();
+                this.Invoke(() => checkArea(passArea), 2f);
+                break;
+            case "Finish":
+                LevelController.Instance.NextLevel();
+                break;
+            default:
+                break;
         }
     }
 

@@ -5,6 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class LevelModel : ScriptableObject
 {
-    public List<RoadDataModel> RoadDatas;
+    public List<Vector3> RoadDatas;
     public List<PassAreaDataModel> PassAreaDatas;
 }
