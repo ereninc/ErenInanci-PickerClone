@@ -9,6 +9,7 @@ public class PassAreaModel : ObjectModel
     [SerializeField] private int passedCounter;
     [SerializeField] private TextMeshPro passedCounterText;
     [SerializeField] private PassAreaVisualModel passAreaVisualModel;
+    [SerializeField] private Animator animator;
 
     private List<PickableModel> pickables = new List<PickableModel>();
 
@@ -25,13 +26,15 @@ public class PassAreaModel : ObjectModel
     {
         maxPickableCount = passCount;
         transform.position = position;
+        animator.Play("OnIdle", 0, 0);
         this.SetActiveGameObject(true);
     }
 
     //SEND BALLS TO OBJECT POOL & INCREASE ROAD HEIGHT & OPEN ROAD LOCK
-    public void OnPassedArea() 
+    public void OnPassedArea()
     {
         passAreaVisualModel.OnPassed();
+        animator.Play("OnPass", 0, 0);
         for (int i = 0; i < pickables.Count; i++)
         {
             pickables[i].OnEnterPassArea();
