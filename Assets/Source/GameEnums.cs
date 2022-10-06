@@ -50,3 +50,9 @@ public enum WorldItemType
     Road,
     PassArea
 }
+
+public enum RoadItemType 
+{
+    Pickable,
+    PowerUp
+}

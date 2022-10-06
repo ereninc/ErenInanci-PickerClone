@@ -12,6 +12,7 @@ public class LevelController : ControllerBaseModel
     public LevelModel ActiveLevel;
     [SerializeField] private MultiplePoolModel roadPools;
     [SerializeField] private PoolModel passAreaPool;
+    [SerializeField] private PoolModel pickableModelPool;
     [SerializeField] private List<LevelModel> levels;
     [SerializeField] private FinishController finishController;
     [SerializeField] private int levelSpawnDistance;
@@ -21,6 +22,7 @@ public class LevelController : ControllerBaseModel
     private Vector3 lastLevelPosition;
     private int currentLevelIndex;
     private int passAreaIndex;
+    private List<int> roadlineDataIndex;
 
     public override void Initialize()
     {
@@ -77,6 +79,41 @@ public class LevelController : ControllerBaseModel
                     break;
                 }
             }
+
+            for (int i = 0; i < ActiveLevel.LineDatas.Count; i++)
+            {
+                LineDataModel dataModel = ActiveLevel.LineDatas[i];
+                int maxItemCount = dataModel.GetItemCount(PlayerDataModel.Data.CompletedLevelCount);
+                maxItemCount = maxItemCount == 0 ? 1 : maxItemCount;
+                int value = dataModel.GetLineValue(PlayerDataModel.Data.CompletedLevelCount) / maxItemCount;
+
+                for (int j = roadlineDataIndex[i]; j < maxItemCount; j++)
+                {
+                    Vector3 pos = dataModel.GetSpawnPosition(maxItemCount, j) + lastLevelPosition;
+
+                    if (Mathf.Abs(playerPos - pos.z) < levelSpawnDistance)
+                    {
+                        roadlineDataIndex[i] = j + 1;
+                        switch (dataModel.Type)
+                        {
+                            case RoadItemType.Pickable:
+                                spawnPickable(dataModel.Id, value, pos);
+                                Debug.Log("Pickable spawned");
+                                break;
+                            case RoadItemType.PowerUp:
+                                //spawnPowerUp(dataModel.Id, pos);
+                                Debug.Log("Power up spawned");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -95,6 +132,11 @@ public class LevelController : ControllerBaseModel
         finishController.SetFinishLine(lastLevelPosition + new Vector3(0, 0, finishlineZOffset));
         roadIndex = 0;
         passAreaIndex = 0;
+        roadlineDataIndex.Clear();
+        for (int i = 0; i < ActiveLevel.LineDatas.Count; i++)
+        {
+            roadlineDataIndex.Add(0);
+        }
     }
 
     private void initializeLevel(int levelIndex)
@@ -103,6 +145,7 @@ public class LevelController : ControllerBaseModel
         ActiveLevel = levels[levelIndex];
         float playerPos = PlayerController.Instance.transform.position.z;
         RoadModel firstRoad = null;
+        roadlineDataIndex = new List<int>();
 
         for (int i = 0; i < ActiveLevel.RoadDatas.Count; i++)
         {
@@ -142,6 +185,67 @@ public class LevelController : ControllerBaseModel
                 break;
             }
         }
+
+        for (int i = 0; i < ActiveLevel.LineDatas.Count; i++)
+        {
+            roadlineDataIndex.Add(0);
+            LineDataModel dataModel = ActiveLevel.LineDatas[i];
+            int maxItemCount = dataModel.GetItemCount(PlayerDataModel.Data.CompletedLevelCount);
+            maxItemCount = maxItemCount == 0 ? 1 : maxItemCount;
+            int value = dataModel.GetLineValue(PlayerDataModel.Data.CompletedLevelCount) / maxItemCount;
+
+            for (int j = roadlineDataIndex[i]; j < maxItemCount; j++)
+            {
+                Vector3 pos = dataModel.GetSpawnPosition(maxItemCount, j) + lastLevelPosition;
+
+                if (Mathf.Abs(playerPos - pos.z) < levelSpawnDistance)
+                {
+                    roadlineDataIndex[i] = j + 1;
+                    switch (dataModel.Type)
+                    {
+                        case RoadItemType.Pickable:
+                            spawnPickable(dataModel.Id, value, pos);
+                            break;
+                        case RoadItemType.PowerUp:
+                            spawnPowerUp(dataModel.Id, pos);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+
+    private void spawnPickable(int id, int value, Vector3 pos)
+    {
+        //PickableModel coin = null;
+
+        //if (id == -1)
+        //{
+        //    coin = CoinPools.GetRandomDeactiveItem() as CoinModel;
+        //}
+        //else
+        //{
+        //    coin = CoinPools.Pools[id].GetDeactiveItem() as CoinModel;
+        //}
+        //coin.Spawn(value, pos);
+        PickableModel pickable = pickableModelPool.GetDeactiveItem<PickableModel>();
+        pickable.transform.position = pos;
+        pickable.SetActiveGameObject(true);
+        Debug.Log("Pickable spawned");
+    }
+
+    private void spawnPowerUp(int id, Vector3 pos)
+    {
+        //PowerUpModel powerUp = PowerUpPools.Pools[id].GetDeactiveItem() as PowerUpModel;
+        //powerUp.Spawn(pos);
+        Debug.Log("Power up spawned");
+
     }
 
     public void NextLevel()

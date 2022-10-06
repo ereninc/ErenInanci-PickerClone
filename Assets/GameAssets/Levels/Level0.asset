@@ -34,3 +34,16 @@ MonoBehaviour:
   - Type: 0
     Position: {x: 0, y: 0, z: 195}
   PassAreaCounts: 0f0000001400000019000000
+  LineDatas:
+  - Id: 0
+    Type: 0
+    StartPoint: {x: 0, y: 1, z: 5}
+    EndPoint: {x: 0, y: 1, z: 40}
+    ControlPointA: {x: -4, y: 1, z: 15}
+    ControlPointB: {x: 4, y: 1, z: 25}
+    MaxItemCount: 20
+    IncPerLevelCount: 0
+    StartItemCount: 20
+    MaxLineValue: 1000
+    IncPerLevelValue: 25
+    StartLineValue: 25

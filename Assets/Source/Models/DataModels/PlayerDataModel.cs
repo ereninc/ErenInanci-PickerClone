@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 public class PlayerDataModel : DataModel
 {
     public static PlayerDataModel Data;
+    public int CompletedLevelCount = 1;
     public int Level = 1;
     public int LevelIndex;
     public int Money = 100;

@@ -7,4 +7,5 @@ public class LevelModel : ScriptableObject
 {
     public List<WorldItemDataModel> RoadDatas;
     public List<int> PassAreaCounts;
+    public List<LineDataModel> LineDatas;
 }
