@@ -16,6 +16,7 @@ public class LevelController : ControllerBaseModel
     [SerializeField] private List<LevelModel> levels;
     [SerializeField] private FinishController finishController;
     [SerializeField] private int levelSpawnDistance;
+    [SerializeField] private int roadItemSpawnDistance;
     [SerializeField] private int finishlineZOffset;
     private int roadIndex;
     private RoadModel lastSpawnedRoad;
@@ -91,7 +92,7 @@ public class LevelController : ControllerBaseModel
                 {
                     Vector3 pos = dataModel.GetSpawnPosition(maxItemCount, j) + lastLevelPosition;
 
-                    if (Mathf.Abs(playerPos - pos.z) < levelSpawnDistance)
+                    if (Mathf.Abs(playerPos - pos.z) < roadItemSpawnDistance)
                     {
                         roadlineDataIndex[i] = j + 1;
                         switch (dataModel.Type)
@@ -198,7 +199,7 @@ public class LevelController : ControllerBaseModel
             {
                 Vector3 pos = dataModel.GetSpawnPosition(maxItemCount, j) + lastLevelPosition;
 
-                if (Mathf.Abs(playerPos - pos.z) < levelSpawnDistance)
+                if (Mathf.Abs(playerPos - pos.z) < roadItemSpawnDistance)
                 {
                     roadlineDataIndex[i] = j + 1;
                     switch (dataModel.Type)
@@ -223,20 +224,12 @@ public class LevelController : ControllerBaseModel
 
     private void spawnPickable(int id, int value, Vector3 pos)
     {
-        //PickableModel coin = null;
-
-        //if (id == -1)
-        //{
-        //    coin = CoinPools.GetRandomDeactiveItem() as CoinModel;
-        //}
-        //else
-        //{
-        //    coin = CoinPools.Pools[id].GetDeactiveItem() as CoinModel;
-        //}
-        //coin.Spawn(value, pos);
         PickableModel pickable = pickableModelPool.GetDeactiveItem<PickableModel>();
         pickable.transform.position = pos;
         pickable.SetActiveGameObject(true);
+        pickable.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        pickable.transform.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        //pickable.transform.GetComponent<Rigidbody>().
         Debug.Log("Pickable spawned");
     }
 
