@@ -10,7 +10,6 @@ public class LevelController : ControllerBaseModel
 {
     public static LevelController Instance;
     public LevelModel ActiveLevel;
-
     [SerializeField] private MultiplePoolModel roadPools;
     [SerializeField] private PoolModel passAreaPool;
     [SerializeField] private List<LevelModel> levels;
@@ -22,8 +21,6 @@ public class LevelController : ControllerBaseModel
     private Vector3 lastLevelPosition;
     private int currentLevelIndex;
     private int passAreaIndex;
-    private float offset;
-    private Vector3 lastPassAreaPos;
 
     public override void Initialize()
     {
@@ -46,22 +43,34 @@ public class LevelController : ControllerBaseModel
         if (currentState == GameStates.Game)
         {
             float playerPos = PlayerController.Instance.transform.position.z;
-
             if (roadIndex == ActiveLevel.RoadDatas.Count - 1)
             {
                 onLevelSpawnComplete();
             }
             for (int i = roadIndex; i < ActiveLevel.RoadDatas.Count; i++)
             {
-                if (Mathf.Abs(playerPos - (ActiveLevel.RoadDatas[roadIndex].z + lastLevelPosition.z)) < levelSpawnDistance)
+                if (Mathf.Abs(playerPos - (ActiveLevel.RoadDatas[roadIndex].Position.z + lastLevelPosition.z)) < levelSpawnDistance)
                 {
-                    roadIndex = i + 1;
-                    RoadModel road = roadPools.GetDeactiveItem<RoadModel>(0);
-                    Vector3 roadSpawnPos = lastLevelPosition + ActiveLevel.RoadDatas[i];
-                    road.OnSpawn(roadSpawnPos);
-
-                    lastSpawnedRoad.NextRoad = road;
-                    lastSpawnedRoad = road;
+                    switch (ActiveLevel.RoadDatas[i].Type)
+                    {
+                        case WorldItemType.Road:
+                            roadIndex = 1 + i;
+                            RoadModel road = roadPools.GetDeactiveItem<RoadModel>(0);
+                            Vector3 roadSpawnPos = lastLevelPosition + ActiveLevel.RoadDatas[i].Position;
+                            road.OnSpawn(roadSpawnPos);
+                            lastSpawnedRoad.NextRoad = road;
+                            lastSpawnedRoad = road;
+                            break;
+                        case WorldItemType.PassArea:
+                            roadIndex = 1 + i;
+                            PassAreaModel passArea = passAreaPool.GetDeactiveItem<PassAreaModel>();
+                            passArea.OnSpawn(ActiveLevel.PassAreaCounts[passAreaIndex], ActiveLevel.RoadDatas[i].Position + lastLevelPosition);
+                            passArea.Initialize();
+                            passAreaIndex++;
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 else
                 {
@@ -73,8 +82,7 @@ public class LevelController : ControllerBaseModel
 
     private void onLevelSpawnComplete()
     {
-        lastLevelPosition += (ActiveLevel.RoadDatas.GetLastItem());
-        lastPassAreaPos += (ActiveLevel.PassAreaDatas.GetLastItem().Position);
+        lastLevelPosition += (ActiveLevel.RoadDatas.GetLastItem().Position);
         if (currentLevelIndex + 1 < levels.Count)
         {
             currentLevelIndex++;
@@ -86,44 +94,53 @@ public class LevelController : ControllerBaseModel
         ActiveLevel = levels[currentLevelIndex];
         finishController.SetFinishLine(lastLevelPosition + new Vector3(0, 0, finishlineZOffset));
         roadIndex = 0;
+        passAreaIndex = 0;
     }
 
     private void initializeLevel(int levelIndex)
     {
-        lastLevelPosition = new Vector3(0, 0, 5);
+        lastLevelPosition = Vector3.zero;
         ActiveLevel = levels[levelIndex];
         float playerPos = PlayerController.Instance.transform.position.z;
         RoadModel firstRoad = null;
 
         for (int i = 0; i < ActiveLevel.RoadDatas.Count; i++)
         {
-            if (Mathf.Abs(playerPos - (ActiveLevel.RoadDatas[roadIndex].z + lastLevelPosition.z)) < levelSpawnDistance)
+            if (Mathf.Abs(playerPos - (ActiveLevel.RoadDatas[roadIndex].Position.z + lastLevelPosition.z)) < levelSpawnDistance)
             {
-                roadIndex = i + 1;
-                RoadModel road = roadPools.GetDeactiveItem<RoadModel>(0);
-                Vector3 roadSpawnPos = lastLevelPosition + ActiveLevel.RoadDatas[i];
-                road.OnSpawn(roadSpawnPos);
+                switch (ActiveLevel.RoadDatas[i].Type)
+                {
+                    case WorldItemType.Road:
+                        roadIndex = i + 1;
+                        RoadModel road = roadPools.GetDeactiveItem<RoadModel>(0);
+                        Vector3 roadSpawnPos = lastLevelPosition + ActiveLevel.RoadDatas[i].Position;
+                        road.OnSpawn(roadSpawnPos);
+                        if (lastSpawnedRoad != null)
+                        {
+                            lastSpawnedRoad.NextRoad = road;
+                        }
+                        else
+                        {
+                            firstRoad = road;
+                        }
+                        lastSpawnedRoad = road;
+                        break;
+                    case WorldItemType.PassArea:
+                        roadIndex = i + 1;
+                        PassAreaModel passArea = passAreaPool.GetDeactiveItem<PassAreaModel>();
+                        passArea.OnSpawn(ActiveLevel.PassAreaCounts[passAreaIndex], ActiveLevel.RoadDatas[i].Position + lastLevelPosition);
+                        passArea.Initialize();
+                        passAreaIndex++;
+                        break;
+                    default:
+                        break;
+                }
 
-                if (lastSpawnedRoad != null)
-                {
-                    lastSpawnedRoad.NextRoad = road;
-                }
-                else
-                {
-                    firstRoad = road;
-                }
-                lastSpawnedRoad = road;
             }
             else
             {
                 break;
             }
-        }
-        for (int i = 0; i < ActiveLevel.PassAreaDatas.Count; i++)
-        {
-            PassAreaModel passArea = passAreaPool.GetDeactiveItem<PassAreaModel>();
-            passArea.OnSpawn(ActiveLevel.PassAreaDatas[i].PassCount, ActiveLevel.PassAreaDatas[i].Position);
-            passArea.Initialize();
         }
     }
 

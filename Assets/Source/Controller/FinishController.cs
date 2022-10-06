@@ -24,6 +24,5 @@ public class FinishController : ControllerBaseModel
     {
         finishModel.transform.SetActiveGameObject(true);
         finishModel.transform.position = pos;
-        Debug.Log("FINISH LINE SPAWNED");
     }
 }

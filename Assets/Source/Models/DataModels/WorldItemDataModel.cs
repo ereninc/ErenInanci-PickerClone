@@ -3,7 +3,6 @@
 [System.Serializable]
 public class WorldItemDataModel
 {
-    public int Id;
+    public WorldItemType Type;
     public Vector3 Position;
-    public Quaternion Rotation;
 }

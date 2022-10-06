@@ -2465,7 +2465,6 @@ MonoBehaviour:
   levels:
   - {fileID: 11400000, guid: 493dd8741212700409002026da5e171e, type: 2}
   - {fileID: 11400000, guid: 493dd8741212700409002026da5e171e, type: 2}
-  - {fileID: 11400000, guid: 493dd8741212700409002026da5e171e, type: 2}
   finishController: {fileID: 473869294}
   levelSpawnDistance: 90
   finishlineZOffset: 15
@@ -2935,12 +2934,12 @@ PrefabInstance:
     - target: {fileID: 7898649070228783854, guid: 7dc98a0bff50f644781d8fe95b6e2194,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.7
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7898649070228783854, guid: 7dc98a0bff50f644781d8fe95b6e2194,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7898649070228783854, guid: 7dc98a0bff50f644781d8fe95b6e2194,
         type: 3}
@@ -3875,7 +3874,7 @@ BoxCollider:
   m_GameObject: {fileID: 377267071}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 5, z: 1}
   m_Center: {x: 0, y: 2, z: 2}
@@ -5102,7 +5101,7 @@ Transform:
   m_Children:
   - {fileID: 470453120}
   m_Father: {fileID: 1528080237}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &473869294
 MonoBehaviour:
@@ -9101,36 +9100,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 988447449}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1006457018
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1006457019}
-  m_Layer: 0
-  m_Name: RoadController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1006457019
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1006457018}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1528080237}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1014777155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14970,7 +14939,6 @@ Transform:
   - {fileID: 1626362718}
   - {fileID: 150076190}
   - {fileID: 1915742804}
-  - {fileID: 1006457019}
   - {fileID: 1623861398}
   - {fileID: 473869293}
   m_Father: {fileID: 0}
@@ -16162,7 +16130,7 @@ Transform:
   - {fileID: 377267072}
   - {fileID: 17108593}
   m_Father: {fileID: 1528080237}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1623861399
 MonoBehaviour:
@@ -16223,7 +16191,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   ForwardSpeed: 5
-  ExtraForwardSpeed: 0
+  ExtraForwardSpeed: 10
   rigid: {fileID: 1623861400}
   roadXLimit: 1.25
   sensitive: 0.35
@@ -21639,12 +21607,12 @@ PrefabInstance:
     - target: {fileID: 7898649070228783854, guid: 7dc98a0bff50f644781d8fe95b6e2194,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.7
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7898649070228783854, guid: 7dc98a0bff50f644781d8fe95b6e2194,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7898649070228783854, guid: 7dc98a0bff50f644781d8fe95b6e2194,
         type: 3}
@@ -21685,11 +21653,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PassAreaModel
-      objectReference: {fileID: 0}
-    - target: {fileID: 7898649070228783855, guid: 7dc98a0bff50f644781d8fe95b6e2194,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dc98a0bff50f644781d8fe95b6e2194, type: 3}

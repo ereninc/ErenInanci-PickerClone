@@ -13,17 +13,24 @@ MonoBehaviour:
   m_Name: Level0
   m_EditorClassIdentifier: 
   RoadDatas:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 30}
-  - {x: 0, y: 0, z: 65}
-  - {x: 0, y: 0, z: 95}
-  - {x: 0, y: 0, z: 130}
-  - {x: 0, y: 0, z: 160}
-  - {x: 0, y: 0, z: 195}
-  PassAreaDatas:
-  - PassCount: 15
-    Position: {x: 0, y: -1, z: 52.5}
-  - PassCount: 12
-    Position: {x: 0, y: -1, z: 117.5}
-  - PassCount: 20
-    Position: {x: 0, y: -1, z: 182.5}
+  - Type: 0
+    Position: {x: 0, y: 0, z: 0}
+  - Type: 0
+    Position: {x: 0, y: 0, z: 30}
+  - Type: 1
+    Position: {x: 0, y: -1, z: 47.5}
+  - Type: 0
+    Position: {x: 0, y: 0, z: 65}
+  - Type: 0
+    Position: {x: 0, y: 0, z: 95}
+  - Type: 1
+    Position: {x: 0, y: -1, z: 112.5}
+  - Type: 0
+    Position: {x: 0, y: 0, z: 130}
+  - Type: 0
+    Position: {x: 0, y: 0, z: 160}
+  - Type: 1
+    Position: {x: 0, y: -1, z: 177.5}
+  - Type: 0
+    Position: {x: 0, y: 0, z: 195}
+  PassAreaCounts: 0f0000001400000019000000

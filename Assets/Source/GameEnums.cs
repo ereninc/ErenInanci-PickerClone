@@ -45,8 +45,8 @@ public enum Languages
     rus,
     por
 }
-public enum RoadItemType 
+public enum WorldItemType 
 { 
-    Pickable,
-    Collectable
+    Road,
+    PassArea
 }
