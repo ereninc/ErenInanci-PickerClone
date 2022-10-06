@@ -5,6 +5,8 @@ using UnityEngine;
 public class CharacterModel : ObjectModel
 {
     [SerializeField] private FinishModel finishline;
+    [SerializeField] private LevelBarController levelBarController;
+
     private void OnTriggerEnter(Collider other)
     {
         switch (other.tag)
@@ -46,13 +48,15 @@ public class CharacterModel : ObjectModel
         if (passArea.CheckArea())
         {
             onExitPassArea();
-            passArea.OnPassedArea(); //This will have animations and particle
+            passArea.OnPassedArea();
+            levelBarController.OnAreaPassed();
         }
         else
         {
             Debug.Log("LEVEL FAILED -> SetGameState = Lose");
             GameController.ChangeState(GameStates.Lose);
-            passArea.OnFailArea(); //Animation or particle maybe
+            passArea.OnFailArea();
+            levelBarController.OnAreaFailed();
         }
     }
 }
