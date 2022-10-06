@@ -6,5 +6,17 @@ using UnityEngine.UI;
 
 public class GameScreen : ScreenElement
 {
+    [SerializeField] Text levelText, nextLevelText;
 
+    public override void Initialize()
+    {
+        base.Initialize();
+        UpdateLevel();
+    }
+
+    public void UpdateLevel()
+    {
+        levelText.text = PlayerDataModel.Data.Level.ToString();
+        nextLevelText.text = (PlayerDataModel.Data.Level + 1).ToString();
+    }
 }

@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PickableModel : ObjectModel
 {
-    public void OnSpawn(Transform targetParent, Vector3 position) 
+    [SerializeField] private Rigidbody rigidb;
+    public void OnSpawn(Vector3 position) 
     {
-        transform.SetParent(targetParent);
+        rigidb.velocity = Vector3.zero;
+        rigidb.angularVelocity = Vector3.zero;
         transform.position = position;
+        transform.rotation = Quaternion.identity;
         this.SetActiveGameObject(true);
+        Debug.Log("Pickable spawned");
     }
 
     public void OnEnterPassArea() 

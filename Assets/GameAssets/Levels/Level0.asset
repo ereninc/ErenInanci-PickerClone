@@ -61,10 +61,10 @@ MonoBehaviour:
     StartLineValue: 25
   - Id: 0
     Type: 0
-    StartPoint: {x: 0, y: 0.625, z: 50}
-    EndPoint: {x: 0, y: 0.625, z: 100}
-    ControlPointA: {x: 4, y: 0.625, z: 85}
-    ControlPointB: {x: -4, y: 0.625, z: 65}
+    StartPoint: {x: 0, y: 0.625, z: 55}
+    EndPoint: {x: 0, y: 0.625, z: 105}
+    ControlPointA: {x: 4, y: 0.625, z: 90}
+    ControlPointB: {x: -4, y: 0.625, z: 70}
     MaxItemCount: 20
     IncPerLevelCount: 0
     StartItemCount: 20

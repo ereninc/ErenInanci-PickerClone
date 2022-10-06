@@ -10,14 +10,15 @@ public class LevelController : ControllerBaseModel
 {
     public static LevelController Instance;
     public LevelModel ActiveLevel;
+    [SerializeField] private List<LevelModel> levels;
     [SerializeField] private MultiplePoolModel roadPools;
     [SerializeField] private PoolModel passAreaPool;
     [SerializeField] private PoolModel pickableModelPool;
-    [SerializeField] private List<LevelModel> levels;
     [SerializeField] private FinishController finishController;
     [SerializeField] private int levelSpawnDistance;
     [SerializeField] private int roadItemSpawnDistance;
     [SerializeField] private int finishlineZOffset;
+    [SerializeField] private EventModel onLevelComplete;
     private int roadIndex;
     private RoadModel lastSpawnedRoad;
     private Vector3 lastLevelPosition;
@@ -225,12 +226,7 @@ public class LevelController : ControllerBaseModel
     private void spawnPickable(int id, int value, Vector3 pos)
     {
         PickableModel pickable = pickableModelPool.GetDeactiveItem<PickableModel>();
-        pickable.transform.position = pos;
-        pickable.SetActiveGameObject(true);
-        pickable.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        pickable.transform.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        //pickable.transform.GetComponent<Rigidbody>().
-        Debug.Log("Pickable spawned");
+        pickable.OnSpawn(pos);
     }
 
     private void spawnPowerUp(int id, Vector3 pos)
@@ -246,6 +242,7 @@ public class LevelController : ControllerBaseModel
         PlayerDataModel.Data.Level++;
         PlayerDataModel.Data.LevelIndex = PlayerDataModel.Data.LevelIndex + 1 < levels.Count ? PlayerDataModel.Data.LevelIndex + 1 : 0;
         PlayerDataModel.Data.Save();
+        onLevelComplete?.Invoke();
     }
 
     [EditorButton]
