@@ -40,6 +40,18 @@ public class PlayerController : ControllerBaseModel
         }
     }
 
+    public void OnLevelCompleted()
+    {
+        ForwardSpeed = 0f;
+        ExtraForwardSpeed = 0f;
+    }
+
+    public void OnNextLevel()
+    {
+        ForwardSpeed = 5f;
+        ExtraForwardSpeed = 0f;
+    }
+
     public void OnPointerDown()
     {
         lastXPosition = pointerController.PointerDownPosition.x;
@@ -51,22 +63,21 @@ public class PlayerController : ControllerBaseModel
         lastXPosition = pointerController.PointerPosition.x;
     }
 
-    public void OnPointerUp(){ }
+    public void OnPointerUp() 
+    {
 
-    [EditorButton]
+    }
+
     public void OnEnterPassArea() 
     {
         ForwardSpeed = 0f;
         ExtraForwardSpeed = 0f;
-        xPos = 0f;
     }
 
-    [EditorButton]
     public void OnExitPassArea() 
     {
         ForwardSpeed = 5f;
         ExtraForwardSpeed = 0f;
-        xPos = 0f;
     }
 
     private void movementUpdate()

@@ -5,5 +5,9 @@ using UnityEngine.UI;
 
 public class WinScreen : ScreenElement
 {
-
+    public void NextLevel() 
+    {
+        PlayerController.Instance.OnNextLevel();
+        GameController.ChangeState(GameStates.Game);
+    }
 }

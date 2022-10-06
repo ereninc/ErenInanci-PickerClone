@@ -15,11 +15,18 @@ public class CharacterModel : ObjectModel
                 this.Invoke(() => checkArea(passArea), 2f);
                 break;
             case "Finish":
-                LevelController.Instance.NextLevel();
+                onLevelCompleted();
                 break;
             default:
                 break;
         }
+    }
+
+    private void onLevelCompleted()
+    {
+        LevelController.Instance.NextLevel();
+        PlayerController.Instance.OnLevelCompleted();
+        GameController.ChangeState(GameStates.Win);
     }
 
     private void onEnterPassArea()
