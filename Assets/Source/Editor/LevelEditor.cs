@@ -84,7 +84,7 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.Space(10);
         if (activeLevelView == null)
         {
-            EditorGUILayout.LabelField("PAGES");
+            EditorGUILayout.LabelField("--Pages--");
         }
         else
         {
@@ -165,6 +165,8 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("Levels are editable after load.");
         EditorGUILayout.Space(10);
+        EditorGUILayout.LabelField("TEST");
+        EditorGUILayout.Space(10);
 
         EditorGUILayout.LabelField("Close Loaded Level");
         EditorGUI.BeginDisabledGroup(activeLevelView == null);
@@ -175,8 +177,8 @@ public class LevelEditor : EditorWindow
         EditorGUI.EndDisabledGroup();
 
         EditorGUILayout.Space(10);
-
         EditorGUILayout.LabelField("Delete");
+
         EditorGUI.BeginDisabledGroup(activeLevelView == null);
         if (GUILayout.Button("Delete Level"))
         {
@@ -242,6 +244,7 @@ public class LevelEditor : EditorWindow
             {
                 activeLevelView = new LevelView();
                 activeLevelView.Level = ScriptableObject.CreateInstance<LevelModel>();
+                setDefaultLevel();
             }
             return;
         }
@@ -273,23 +276,22 @@ public class LevelEditor : EditorWindow
                 }
             }
         }
-
         EditorGUILayout.EndHorizontal();
 
+        EditorGUILayout.BeginHorizontal();
         showRoads = EditorGUILayout.Foldout(showRoads, "Show Roads");
         EditorGUILayout.Space(5);
 
         if (showRoads)
             drawRoads();
+        EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.LabelField("Pass Area Settings");
         EditorGUILayout.BeginHorizontal();
-
         showAreas = EditorGUILayout.Foldout(showAreas, "Show Areas");
         EditorGUILayout.Space(5);
         if (showAreas)
             drawAreas();
-
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.Space(5);
@@ -324,32 +326,39 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.Space(10);
 
         lineScrollPos = EditorGUILayout.BeginScrollView(lineScrollPos);
-        for (int i = 0; i < activeLevelView.Level.LineDatas.Count; i++)
+        if (activeLevelView.Level.LineDatas.Count >0)
         {
-            drawLineDataModel(activeLevelView.LineDataViews[i]);
+            for (int i = 0; i < activeLevelView.Level.LineDatas.Count; i++)
+            {
+                drawLineDataModel(activeLevelView.LineDataViews[i]);
+            }
         }
-
         EditorGUILayout.EndScrollView();
     }
 
     private void drawRoads()
     {
-        roadScrollPos = EditorGUILayout.BeginScrollView(roadScrollPos, "Roads", GUILayout.MaxHeight(200));
-        for (int i = 0; i < activeLevelView.Level.RoadDatas.Count; i++)
+        if (activeLevelView.Level.RoadDatas.Count > 0)
         {
-            activeLevelView.Level.RoadDatas[i].Type = (WorldItemType)EditorGUILayout.EnumPopup("Road Type", activeLevelView.Level.RoadDatas[i].Type);
-            activeLevelView.Level.RoadDatas[i].Position = EditorGUILayout.Vector3Field("Road_" + i, activeLevelView.Level.RoadDatas[i].Position);
+            roadScrollPos = EditorGUILayout.BeginScrollView(roadScrollPos, "Roads", GUILayout.MaxHeight(200));
+            for (int i = 0; i < activeLevelView.Level.RoadDatas.Count; i++)
+            {
+                activeLevelView.Level.RoadDatas[i].Type = (WorldItemType)EditorGUILayout.EnumPopup("Road Type", activeLevelView.Level.RoadDatas[i].Type);
+                activeLevelView.Level.RoadDatas[i].Position = EditorGUILayout.Vector3Field("Road_" + i, activeLevelView.Level.RoadDatas[i].Position);
+            }
         }
-
         EditorGUILayout.EndScrollView();
     }
 
     private void drawAreas()
     {
-        areaScrollPos = EditorGUILayout.BeginScrollView(areaScrollPos, "Areas", GUILayout.MaxHeight(150));
-        for (int i = 0; i < activeLevelView.Level.PassAreaCounts.Count; i++)
+        if (activeLevelView.Level.PassAreaCounts.Count > 0)
         {
-            activeLevelView.Level.PassAreaCounts[i] = EditorGUILayout.IntField(activeLevelView.Level.PassAreaCounts[i]);
+            areaScrollPos = EditorGUILayout.BeginScrollView(areaScrollPos, "Areas", GUILayout.MaxHeight(150));
+            for (int i = 0; i < activeLevelView.Level.PassAreaCounts.Count; i++)
+            {
+                activeLevelView.Level.PassAreaCounts[i] = EditorGUILayout.IntField(activeLevelView.Level.PassAreaCounts[i]);
+            }
         }
         EditorGUILayout.EndScrollView();
     }
@@ -489,7 +498,6 @@ public class LevelEditor : EditorWindow
 
         EditorGUILayout.EndHorizontal();
 
-
         if (lineView.IsShowed)
         {
             EditorGUI.indentLevel++;
@@ -535,18 +543,31 @@ public class LevelEditor : EditorWindow
     {
         if (activeLevelView != null)
         {
-            for (int i = activeLevelView.Level.RoadDatas.Count - 1; i >= 0; i--)
+            if (activeLevelView.Level.RoadDatas.Count > 0)
             {
-                activeLevelView.Level.RoadDatas[i].Position = drawRoad(activeLevelView.Level.RoadDatas[i].Position);
+                for (int i = activeLevelView.Level.RoadDatas.Count - 1; i >= 0; i--)
+                {
+                    activeLevelView.Level.RoadDatas[i].Position = drawRoad(activeLevelView.Level.RoadDatas[i].Position);
+                }
+            }
+            else
+            {
+                activeLevelView.Level.RoadDatas.Add(new WorldItemDataModel());
             }
 
             if (activeLevelView.LineDataViews != null)
             {
-
-                for (int i = 0; i < activeLevelView.LineDataViews.Count; i++)
+                if (activeLevelView.Level.LineDatas.Count > 0)
                 {
-                    drawSceneLineDataModel(activeLevelView.Level.LineDatas[i]);
+                    for (int i = 0; i < activeLevelView.LineDataViews.Count; i++)
+                    {
+                        drawSceneLineDataModel(activeLevelView.Level.LineDatas[i]);
+                    }
                 }
+            }
+            else
+            {
+                activeLevelView.Level.LineDatas.Add(new LineDataModel());
             }
         }
     }
@@ -653,6 +674,34 @@ public class LevelEditor : EditorWindow
         }
 
         return pos;
+    }
+
+    private void setDefaultLevel()
+    {
+        activeLevelView.Level = new LevelModel();
+        activeLevelView.Level.RoadDatas = new List<WorldItemDataModel>();
+        activeLevelView.Level.LineDatas = new List<LineDataModel>();
+        activeLevelView.Level.PassAreaCounts = new List<int>();
+        activeLevelView.LineDataViews = new List<LineDataView>();
+        activeLevelView.Level.Name = "New Level";
+        WorldItemDataModel roadTemp = new WorldItemDataModel();
+        createRoadCount = 1;
+        roadTemp.Type = WorldItemType.Road;
+        roadTemp.Position = Vector3.zero;
+        activeLevelView.Level.RoadDatas.Add(roadTemp);
+        activeLevelView.Level.PassAreaCounts.Add(1);
+        LineDataModel lineTemp = new LineDataModel();
+        LineDataView lineView = new LineDataView();
+        lineView.LineData = lineTemp;
+        lineTemp.Type = RoadItemType.Pickable;
+        lineTemp.StartPoint = Vector3.zero;
+        lineTemp.EndPoint = Vector3.one;
+        lineTemp.ControlPointA = Vector3.zero;
+        lineTemp.ControlPointB = Vector3.one;
+        lineTemp.StartItemCount = 1;
+        lineTemp.MaxItemCount = 1;
+        activeLevelView.Level.LineDatas.Add(lineTemp);
+        activeLevelView.LineDataViews.Add(lineView);
     }
 
     #endregion
