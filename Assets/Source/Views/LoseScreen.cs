@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class LoseScreen : ScreenElement
 {
-    public override void Initialize()
+    public void RestartLevel()
     {
-        base.Initialize();
+        GameController.ReloadGame();
     }
 }

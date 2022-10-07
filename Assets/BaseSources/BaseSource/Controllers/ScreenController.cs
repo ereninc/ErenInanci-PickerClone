@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ScreenController : ControllerBaseModel
 {
-    static ScreenController instance;
+    public static ScreenController Instance;
     public ScreenElement ActiveScreen;
     [SerializeField] List<ScreenElement> screens;
     [SerializeField] bool autoChangeScreens;
@@ -13,12 +13,12 @@ public class ScreenController : ControllerBaseModel
     public override void Initialize()
     {
         base.Initialize();
-        if (instance != null)
+        if (Instance != null)
         {
-            Destroy(instance);
+            Destroy(Instance);
         }
 
-        instance = this;
+        Instance = this;
 
         foreach (var item in screens)
         {
@@ -62,33 +62,40 @@ public class ScreenController : ControllerBaseModel
 
         if (showAfterHide)
         {
-            if (instance.ActiveScreen != null)
+            if (Instance.ActiveScreen != null)
             {
-                instance.ActiveScreen.Hide(nextScreen.Show);
-                instance.ActiveScreen = nextScreen;
+                Instance.ActiveScreen.Hide(nextScreen.Show);
+                Instance.ActiveScreen = nextScreen;
             }
             else
             {
-                instance.ActiveScreen = nextScreen;
-                instance.ActiveScreen.Show();
+                Instance.ActiveScreen = nextScreen;
+                Instance.ActiveScreen.Show();
             }
         }
         else
         {
-            instance.ActiveScreen.Hide();
-            instance.ActiveScreen = nextScreen;
-            instance.ActiveScreen.Show();
+            Instance.ActiveScreen.Hide();
+            Instance.ActiveScreen = nextScreen;
+            Instance.ActiveScreen.Show();
         }
 
     }
 
     public static T GetScreen<T>()
     {
-        return (T)(object)instance.screens.Find(x => x.GetType() == typeof(T));
+        return (T)(object)Instance.screens.Find(x => x.GetType() == typeof(T));
     }
 
     public static T GetScreen<T>(int index)
     {
-        return (T)(object)instance.screens[index];
+        return (T)(object)Instance.screens[index];
+    }
+
+    public void Reloaded()
+    {
+        ActiveScreen = GetScreen<MainScreen>();
+        ActiveScreen.Show();
+        GameController.ChangeState(GameStates.Main);
     }
 }

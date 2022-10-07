@@ -50,6 +50,7 @@ public class PlayerController : ControllerBaseModel
     {
         ForwardSpeed = 5f;
         ExtraForwardSpeed = 0f;
+        CameraController.Instance.OnEnterBridge();
     }
 
     public void OnPointerDown()

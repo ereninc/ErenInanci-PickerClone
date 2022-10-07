@@ -5,6 +5,7 @@ using UnityEngine;
 public class PickableModel : ObjectModel
 {
     [SerializeField] private Rigidbody rigidb;
+
     public void OnSpawn(Vector3 position) 
     {
         rigidb.velocity = Vector3.zero;
@@ -12,7 +13,6 @@ public class PickableModel : ObjectModel
         transform.position = position;
         transform.rotation = Quaternion.identity;
         this.SetActiveGameObject(true);
-        Debug.Log("Pickable spawned");
     }
 
     public void OnEnterPassArea() 

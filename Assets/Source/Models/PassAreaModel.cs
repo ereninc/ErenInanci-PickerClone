@@ -30,7 +30,6 @@ public class PassAreaModel : ObjectModel
         this.SetActiveGameObject(true);
     }
 
-    //SEND BALLS TO OBJECT POOL & INCREASE ROAD HEIGHT & OPEN ROAD LOCK
     public void OnPassedArea()
     {
         passAreaVisualModel.OnPassed();

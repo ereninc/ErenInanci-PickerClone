@@ -83,11 +83,9 @@ public class WorldItemSpawnController : ControllerBaseModel
                         {
                             case RoadItemType.Pickable:
                                 spawnPickable(dataModel.Id, value, pos);
-                                Debug.Log("Pickable spawned");
                                 break;
                             case RoadItemType.PowerUp:
                                 //spawnPowerUp(dataModel.Id, pos);
-                                Debug.Log("Power up spawned");
                                 break;
                             default:
                                 break;
@@ -114,7 +112,7 @@ public class WorldItemSpawnController : ControllerBaseModel
             LevelController.Instance.CurrentLevelIndex = 0;
         }
         activeLevel = LevelController.Instance.Levels[LevelController.Instance.CurrentLevelIndex];
-        finishController.SetFinishLine(lastLevelPosition + new Vector3(0, 0, finishlineZOffset));
+        finishController.SetFinishLine(lastLevelPosition - new Vector3(0, 0, finishlineZOffset));
         roadIndex = 0;
         passAreaIndex = 0;
         roadlineDataIndex.Clear();
@@ -216,7 +214,6 @@ public class WorldItemSpawnController : ControllerBaseModel
     {
         //PowerUpModel powerUp = PowerUpPools.Pools[id].GetDeactiveItem() as PowerUpModel;
         //powerUp.Spawn(pos);
-        Debug.Log("Power up spawned");
 
     }
 }

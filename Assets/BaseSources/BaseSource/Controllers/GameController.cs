@@ -7,6 +7,7 @@ public class GameController : ControllerBaseModel
 {
     public static GameController Instance;
     public static bool IsPlayerWin;
+    public static bool IsReloaded;
     private GameStates currentState;
     public static GameStates CurrentState
     {
@@ -71,6 +72,7 @@ public class GameController : ControllerBaseModel
     public static void ReloadGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        IsReloaded = true;
     }
 }
 

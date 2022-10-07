@@ -33,6 +33,8 @@ MonoBehaviour:
     Position: {x: 0, y: -1, z: 177.5}
   - Type: 0
     Position: {x: 0, y: 0, z: 195}
+  - Type: 0
+    Position: {x: 0, y: 0, z: 225}
   PassAreaCounts: 0a0000000a0000000a000000
   LineDatas:
   - Id: 0

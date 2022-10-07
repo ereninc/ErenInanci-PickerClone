@@ -33,13 +33,11 @@ public class CharacterModel : ObjectModel
 
     private void onEnterPassArea()
     {
-        Debug.Log("OnEnterPassArea -> Stop");
         PlayerController.Instance.OnEnterPassArea();
     }
 
     private void onExitPassArea() 
     {
-        Debug.Log("OnExitPassArea -> Continue");
         PlayerController.Instance.OnExitPassArea();
     }
 
@@ -53,7 +51,6 @@ public class CharacterModel : ObjectModel
         }
         else
         {
-            Debug.Log("LEVEL FAILED -> SetGameState = Lose");
             GameController.ChangeState(GameStates.Lose);
             passArea.OnFailArea();
             levelBarController.OnAreaFailed();
