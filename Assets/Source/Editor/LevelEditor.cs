@@ -32,6 +32,7 @@ public class LevelEditor : EditorWindow
             data.LineDebugColors = new List<Color32>();
             data.LineDebugShowLines = new List<bool>();
             data.BezierLineColor = Color.white;
+            data.RoadSize = new Vector2Int(5, 30);
         }
     }
 
@@ -86,7 +87,7 @@ public class LevelEditor : EditorWindow
         else
         {
             EditorGUILayout.LabelField("Active Level : ");
-            EditorGUILayout.ObjectField("", activeLevelView.Level, typeof(LevelModel), true);
+            EditorGUILayout.ObjectField(activeLevelView.Level.Name, activeLevelView.Level, typeof(LevelModel), true);
         }
         EditorGUILayout.Space(10);
         EditorGUILayout.BeginHorizontal();
@@ -136,6 +137,7 @@ public class LevelEditor : EditorWindow
                 {
                     loadLevel(loadedLevel);
                     data.ActiveTab = 1;
+                    createRoadCount = activeLevelView.Level.RoadDatas.Count;
                 }
             }
         }
@@ -238,7 +240,6 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.LabelField("Road Setting");
 
         EditorGUILayout.BeginHorizontal();
-        createRoadCount = activeLevelView.Level.RoadDatas.Count;
         createRoadCount = EditorGUILayout.IntField(new GUIContent("Road Count", "Total Road Count"), createRoadCount);
 
         if (GUILayout.Button("Update Road Count"))
@@ -637,6 +638,7 @@ public class LevelEditorData
     public Color32 BezierLineColor;
     public Color32 RoadColor;
     public List<bool> LineDebugShowLines;
+    public Vector2Int RoadSize;
 }
 
 public class LevelView
