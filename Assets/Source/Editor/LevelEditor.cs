@@ -23,13 +23,13 @@ public class LevelEditor : EditorWindow
     private void loadEditorData()
     {
         data = JsonConvert.DeserializeObject<LevelEditorData>(EditorPrefs.GetString("LevelEditorData"));
+        data.ActiveTab = 0;
         if (data == null)
         {
             data = new LevelEditorData();
             data.LineDebugColors = new List<Color32>();
             data.LineDebugShowLines = new List<bool>();
             data.BezierLineColor = Color.white;
-            data.ActiveTab = 0;
         }
     }
 
@@ -64,8 +64,6 @@ public class LevelEditor : EditorWindow
         {
             isAutoSaved = false;
         }
-
-
         mainView();
     }
 
@@ -97,7 +95,6 @@ public class LevelEditor : EditorWindow
             data.ActiveTab = 0;
         }
         EditorGUI.EndDisabledGroup();
-
         EditorGUI.BeginDisabledGroup(data.ActiveTab == 1);
 
         if (GUILayout.Button("Edit Loaded Level or Create New"))
@@ -105,9 +102,7 @@ public class LevelEditor : EditorWindow
             data.ActiveTab = 1;
         }
         EditorGUI.EndDisabledGroup();
-
         EditorGUILayout.EndHorizontal();
-
         EditorGUILayout.Space(10);
 
         switch (data.ActiveTab)
@@ -143,7 +138,6 @@ public class LevelEditor : EditorWindow
             }
         }
 
-
         EditorGUI.BeginDisabledGroup(activeLevelView == null);
         if (GUILayout.Button("Save Level"))
         {
@@ -160,9 +154,9 @@ public class LevelEditor : EditorWindow
 
         EditorGUI.EndDisabledGroup();
         EditorGUILayout.EndHorizontal();
+
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("Levels are editable after load.");
-
         EditorGUILayout.Space(10);
 
         EditorGUILayout.LabelField("Close Loaded Level");
@@ -172,7 +166,6 @@ public class LevelEditor : EditorWindow
             activeLevelView = null;
         }
         EditorGUI.EndDisabledGroup();
-
 
         EditorGUILayout.Space(10);
 
@@ -194,12 +187,6 @@ public class LevelEditor : EditorWindow
         };
 
         activeLevelView.Level.LineDatas = new List<LineDataModel>();
-        activeLevelView.Level.RoadDatas = new List<WorldItemDataModel>();
-
-        for (int i = 0; i < loadedLevel.RoadDatas.Count; i++)
-        {
-            activeLevelView.Level.RoadDatas.Add(loadedLevel.RoadDatas[i]);
-        }
 
         for (int i = 0; i < loadedLevel.LineDatas.Count; i++)
         {
@@ -236,9 +223,7 @@ public class LevelEditor : EditorWindow
             {
                 activeLevelView = new LevelView();
                 activeLevelView.Level = ScriptableObject.CreateInstance<LevelModel>();
-                activeLevelView.Level.RoadDatas = new List<WorldItemDataModel>();
             }
-
             return;
         }
 
@@ -271,7 +256,6 @@ public class LevelEditor : EditorWindow
         }
 
         EditorGUILayout.EndHorizontal();
-
         EditorGUILayout.Space(10);
 
         lineScrollPos = EditorGUILayout.BeginScrollView(lineScrollPos);
@@ -313,28 +297,21 @@ public class LevelEditor : EditorWindow
         if (activeLevelView.ShowLineDebug)
         {
             EditorGUI.indentLevel++;
-
             for (int i = 0; i < itemTypes.Length; i++)
             {
                 string enumName = itemTypes[i];
                 data.LineDebugColors[i] = EditorGUILayout.ColorField(enumName + " Color", data.LineDebugColors[i]);
             }
-
             data.BezierLineColor = EditorGUILayout.ColorField("Bezier Line Color", data.BezierLineColor);
-
             EditorGUILayout.Space(5);
-
             for (int i = 0; i < itemTypes.Length; i++)
             {
                 string enumName = itemTypes[i];
                 data.LineDebugShowLines[i] = EditorGUILayout.Toggle("Show " + enumName + " Line", data.LineDebugShowLines[i]);
             }
-
             EditorGUI.indentLevel--;
         }
-
     }
-
 
     private void drawLineDataModel(LineDataView lineView)
     {
@@ -411,7 +388,6 @@ public class LevelEditor : EditorWindow
             lineData.LineData.MaxItemCount = lineView.LineData.MaxItemCount;
             lineData.LineData.Type = lineView.LineData.Type;
 
-
             activeLevelView.Level.LineDatas.Add(lineData.LineData);
             activeLevelView.LineDataViews.Add(lineData);
         }
@@ -428,7 +404,6 @@ public class LevelEditor : EditorWindow
         if (lineView.IsShowed)
         {
             EditorGUI.indentLevel++;
-
             lineView.LineData.Type = (RoadItemType)EditorGUILayout.EnumPopup("Change Type", lineView.LineData.Type);
 
             switch (lineView.LineData.Type)
@@ -458,27 +433,9 @@ public class LevelEditor : EditorWindow
                 lineView.LineData.EndPoint = EditorGUILayout.Vector3Field("End Point", lineView.LineData.EndPoint);
                 EditorGUI.indentLevel--;
             }
-
             EditorGUI.indentLevel--;
         }
 
-    }
-
-    private Texture2D makeBackgroundTexture(int width, int height, Color color)
-    {
-        Color[] pixels = new Color[width * height];
-
-        for (int i = 0; i < pixels.Length; i++)
-        {
-            pixels[i] = color;
-        }
-
-        Texture2D backgroundTexture = new Texture2D(width, height);
-
-        backgroundTexture.SetPixels(pixels);
-        backgroundTexture.Apply();
-
-        return backgroundTexture;
     }
 
     #endregion
@@ -529,7 +486,6 @@ public class LevelEditor : EditorWindow
             Vector3 currentPos = Helpers.Maths.CalculateCubicBezierPoint(currentTime, lineData.StartPoint, lineData.ControlPointA, lineData.ControlPointB, lineData.EndPoint);
             Vector3 nextPos = Helpers.Maths.CalculateCubicBezierPoint(nextTime, lineData.StartPoint, lineData.ControlPointA, lineData.ControlPointB, lineData.EndPoint);
 
-
             drawSphere(currentPos, 1, color);
             drawLine(currentPos, nextPos, 1, color);
         }
@@ -555,11 +511,8 @@ public class LevelEditor : EditorWindow
     {
         Color defColor = Handles.color;
         Handles.color = color;
-
-        Handles.DrawLine(aPoint, bPoint/*, thickness*/);
-
+        Handles.DrawLine(aPoint, bPoint);
         Handles.color = defColor;
-
     }
 
     private Vector3 drawTransformHandle(Vector3 pos, int type)
@@ -567,7 +520,6 @@ public class LevelEditor : EditorWindow
         if (Tools.current == Tool.Move)
         {
             EditorGUI.BeginChangeCheck();
-
             Handles.SetCamera(SceneView.lastActiveSceneView.camera);
             Vector3 position = Vector3.zero;
 
