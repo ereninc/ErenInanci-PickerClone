@@ -9,8 +9,10 @@ public class LevelEditor : EditorWindow
 {
     private LevelEditorData data;
     private LevelView activeLevelView;
-    private Vector2 lineScrollPos;
+    private Vector2 lineScrollPos, roadScrollPos;
     private bool isAutoSaved;
+    private bool showRoads;
+    private int createRoadCount;
 
     [MenuItem("Level Editor/Editor")]
     static void Init()
@@ -187,6 +189,12 @@ public class LevelEditor : EditorWindow
         };
 
         activeLevelView.Level.LineDatas = new List<LineDataModel>();
+        activeLevelView.Level.RoadDatas = new List<WorldItemDataModel>();
+
+        for (int i = 0; i < loadedLevel.RoadDatas.Count; i++)
+        {
+            activeLevelView.Level.RoadDatas.Add(loadedLevel.RoadDatas[i]);
+        }
 
         for (int i = 0; i < loadedLevel.LineDatas.Count; i++)
         {
@@ -226,6 +234,43 @@ public class LevelEditor : EditorWindow
             }
             return;
         }
+
+        EditorGUILayout.LabelField("Road Setting");
+
+        EditorGUILayout.BeginHorizontal();
+        createRoadCount = activeLevelView.Level.RoadDatas.Count;
+        createRoadCount = EditorGUILayout.IntField(new GUIContent("Road Count", "Total Road Count"), createRoadCount);
+
+        if (GUILayout.Button("Update Road Count"))
+        {
+            if (createRoadCount > activeLevelView.Level.RoadDatas.Count)
+            {
+                int diff = createRoadCount - activeLevelView.Level.RoadDatas.Count;
+                for (int i = 0; i < diff; i++)
+                {
+                    Vector3 pos = activeLevelView.Level.RoadDatas.Count > 0 ? activeLevelView.Level.RoadDatas.GetLastItem().Position + new Vector3(0, 0, 30) : Vector3.zero;
+                    WorldItemDataModel road = new WorldItemDataModel();
+                    road.Position = pos;
+                    activeLevelView.Level.RoadDatas.Add(road);
+                }
+            }
+            else
+            {
+                int diff = activeLevelView.Level.RoadDatas.Count - createRoadCount;
+                for (int i = 0; i < diff; i++)
+                {
+                    activeLevelView.Level.RoadDatas.Remove(activeLevelView.Level.RoadDatas.GetLastItem());
+                }
+            }
+        }
+
+        EditorGUILayout.EndHorizontal();
+
+        showRoads = EditorGUILayout.Foldout(showRoads, "Show Roads");
+        EditorGUILayout.Space(5);
+
+        if (showRoads)
+            drawRoads();
 
         EditorGUILayout.Space(5);
         EditorGUILayout.LabelField("Lines");
@@ -267,6 +312,18 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.EndScrollView();
     }
 
+    private void drawRoads()
+    {
+        roadScrollPos = EditorGUILayout.BeginScrollView(roadScrollPos, "Roads", GUILayout.MaxHeight(150));
+        for (int i = 0; i < activeLevelView.Level.RoadDatas.Count; i++)
+        {
+            activeLevelView.Level.RoadDatas[i].Type = (WorldItemType)EditorGUILayout.EnumPopup("Road Type", activeLevelView.Level.RoadDatas[i].Type);
+            activeLevelView.Level.RoadDatas[i].Position = EditorGUILayout.Vector3Field("Road_" + i, activeLevelView.Level.RoadDatas[i].Position);
+        }
+
+        EditorGUILayout.EndScrollView();
+    }
+
     private void drawLineDebug()
     {
         activeLevelView.ShowLineDebug = EditorGUILayout.Foldout(activeLevelView.ShowLineDebug, "Show Debug Settings");
@@ -303,6 +360,8 @@ public class LevelEditor : EditorWindow
                 data.LineDebugColors[i] = EditorGUILayout.ColorField(enumName + " Color", data.LineDebugColors[i]);
             }
             data.BezierLineColor = EditorGUILayout.ColorField("Bezier Line Color", data.BezierLineColor);
+            data.RoadColor = EditorGUILayout.ColorField("Road Color", data.RoadColor);
+
             EditorGUILayout.Space(5);
             for (int i = 0; i < itemTypes.Length; i++)
             {
@@ -446,14 +505,36 @@ public class LevelEditor : EditorWindow
     {
         if (activeLevelView != null)
         {
+            for (int i = activeLevelView.Level.RoadDatas.Count - 1; i >= 0; i--)
+            {
+                activeLevelView.Level.RoadDatas[i].Position = drawRoad(activeLevelView.Level.RoadDatas[i].Position);
+            }
+
             if (activeLevelView.LineDataViews != null)
             {
+
                 for (int i = 0; i < activeLevelView.LineDataViews.Count; i++)
                 {
                     drawSceneLineDataModel(activeLevelView.Level.LineDatas[i]);
                 }
             }
         }
+    }
+
+    private Vector3 drawRoad(Vector3 pos)
+    {
+        Vector3[] positions = new Vector3[4];
+        positions[0] = pos + new Vector3(-5, 0, -30);
+        positions[1] = pos + new Vector3(-5, 0, 0);
+        positions[2] = pos + new Vector3(5, 0, 0);
+        positions[3] = pos + new Vector3(5, 0, -30);
+        Handles.DrawSolidRectangleWithOutline(positions, data.RoadColor, data.RoadColor);
+        drawSphere(pos, 1, data.RoadColor);
+
+        if (showRoads)
+            pos = drawTransformHandle(pos, 0);
+
+        return pos;
     }
 
     private void drawSceneLineDataModel(LineDataModel lineData)
@@ -551,8 +632,10 @@ public class LevelEditorData
 {
     public int ActiveTab = 0;
     public RoadItemType NewLineItemType;
+    public WorldItemType WorldItemType;
     public List<Color32> LineDebugColors;
     public Color32 BezierLineColor;
+    public Color32 RoadColor;
     public List<bool> LineDebugShowLines;
 }
 

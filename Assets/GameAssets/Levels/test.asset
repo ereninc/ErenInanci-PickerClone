@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   Name: 
-  RoadDatas: []
+  RoadDatas:
+  - Type: 0
+    Position: {x: 0, y: 0, z: 15}
+  - Type: 0
+    Position: {x: 0, y: 0, z: 30}
+  - Type: 1
+    Position: {x: 0, y: 0, z: 47.5}
   PassAreaCounts: 
   LineDatas:
   - Id: 0
