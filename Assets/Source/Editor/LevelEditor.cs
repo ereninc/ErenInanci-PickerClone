@@ -356,9 +356,9 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.BeginHorizontal();
         lineView.IsShowed = EditorGUILayout.Foldout(lineView.IsShowed, name);
 
-        if (GUILayout.Button("Add Pickable", GUILayout.MaxWidth(100)))
+        if (GUILayout.Button("++ Pickable", GUILayout.MaxWidth(75)))
         {
-            LineDataView lineData = new LineDataView(); 
+            LineDataView lineData = new LineDataView();
             lineData.IsShowed = lineView.IsShowed;
             lineData.IsShowPositions = lineView.IsShowPositions;
             lineData.LineData = new LineDataModel();
@@ -372,6 +372,25 @@ public class LevelEditor : EditorWindow
             lineData.LineData.IncPerLevelCount = lineView.LineData.IncPerLevelCount;
             lineData.LineData.StartItemCount = ++lineView.LineData.StartItemCount;
             lineData.LineData.MaxItemCount = ++lineView.LineData.MaxItemCount;
+            lineData.LineData.Type = lineView.LineData.Type;
+        }
+
+        if (GUILayout.Button("-- Pickable", GUILayout.MaxWidth(75)))
+        {
+            LineDataView lineData = new LineDataView();
+            lineData.IsShowed = lineView.IsShowed;
+            lineData.IsShowPositions = lineView.IsShowPositions;
+            lineData.LineData = new LineDataModel();
+
+            lineData.LineData.Id = lineView.LineData.Id;
+            lineData.LineData.StartPoint = lineView.LineData.StartPoint;
+            lineData.LineData.EndPoint = lineView.LineData.EndPoint;
+            lineData.LineData.ControlPointA = lineView.LineData.ControlPointA;
+            lineData.LineData.ControlPointB = lineView.LineData.ControlPointB;
+
+            lineData.LineData.IncPerLevelCount = lineView.LineData.IncPerLevelCount;
+            lineData.LineData.StartItemCount = --lineView.LineData.StartItemCount;
+            lineData.LineData.MaxItemCount = --lineView.LineData.MaxItemCount;
             lineData.LineData.Type = lineView.LineData.Type;
         }
 
