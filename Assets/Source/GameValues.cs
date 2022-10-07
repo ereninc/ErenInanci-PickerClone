@@ -1,5 +1,6 @@
 ﻿public static class GameValues
 {
-    public const float SingleRoadDistance = 30;
-    public const float LevelSpawnDistance = 270;
+    public const float LevelSpawnDistance = 90;
+    public const float RoadItemSpawnDistance = 75;
+    public const float FinishLineZOffset = 35;
 }
