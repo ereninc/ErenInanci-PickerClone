@@ -9,10 +9,12 @@ public class LevelEditor : EditorWindow
 {
     private LevelEditorData data;
     private LevelView activeLevelView;
-    private Vector2 lineScrollPos, roadScrollPos;
+    private Vector2 lineScrollPos, roadScrollPos, areaScrollPos;
     private bool isAutoSaved;
     private bool showRoads;
+    private bool showAreas;
     private int createRoadCount;
+    private int passAreaCount;
 
     [MenuItem("Level Editor/Editor")]
     static void Init()
@@ -138,6 +140,7 @@ public class LevelEditor : EditorWindow
                     loadLevel(loadedLevel);
                     data.ActiveTab = 1;
                     createRoadCount = activeLevelView.Level.RoadDatas.Count;
+                    passAreaCount = activeLevelView.Level.PassAreaCounts.Count;
                 }
             }
         }
@@ -192,6 +195,7 @@ public class LevelEditor : EditorWindow
 
         activeLevelView.Level.LineDatas = new List<LineDataModel>();
         activeLevelView.Level.RoadDatas = new List<WorldItemDataModel>();
+        activeLevelView.Level.PassAreaCounts = new List<int>();
 
         for (int i = 0; i < loadedLevel.RoadDatas.Count; i++)
         {
@@ -213,6 +217,11 @@ public class LevelEditor : EditorWindow
                 MaxItemCount = lineData.MaxItemCount,
                 Type = lineData.Type,
             });
+        }
+
+        for (int i = 0; i < loadedLevel.PassAreaCounts.Count; i++)
+        {
+            activeLevelView.Level.PassAreaCounts.Add(loadedLevel.PassAreaCounts[i]);
         }
 
         for (int i = 0; i < activeLevelView.Level.LineDatas.Count; i++)
@@ -273,6 +282,16 @@ public class LevelEditor : EditorWindow
         if (showRoads)
             drawRoads();
 
+        EditorGUILayout.LabelField("Pass Area Settings");
+        EditorGUILayout.BeginHorizontal();
+
+        showAreas = EditorGUILayout.Foldout(showAreas, "Show Areas");
+        EditorGUILayout.Space(5);
+        if (showAreas)
+            drawAreas();
+
+        EditorGUILayout.EndHorizontal();
+
         EditorGUILayout.Space(5);
         EditorGUILayout.LabelField("Lines");
         EditorGUILayout.Space(5);
@@ -315,13 +334,23 @@ public class LevelEditor : EditorWindow
 
     private void drawRoads()
     {
-        roadScrollPos = EditorGUILayout.BeginScrollView(roadScrollPos, "Roads", GUILayout.MaxHeight(150));
+        roadScrollPos = EditorGUILayout.BeginScrollView(roadScrollPos, "Roads", GUILayout.MaxHeight(200));
         for (int i = 0; i < activeLevelView.Level.RoadDatas.Count; i++)
         {
             activeLevelView.Level.RoadDatas[i].Type = (WorldItemType)EditorGUILayout.EnumPopup("Road Type", activeLevelView.Level.RoadDatas[i].Type);
             activeLevelView.Level.RoadDatas[i].Position = EditorGUILayout.Vector3Field("Road_" + i, activeLevelView.Level.RoadDatas[i].Position);
         }
 
+        EditorGUILayout.EndScrollView();
+    }
+
+    private void drawAreas()
+    {
+        areaScrollPos = EditorGUILayout.BeginScrollView(areaScrollPos, "Areas", GUILayout.MaxHeight(150));
+        for (int i = 0; i < activeLevelView.Level.PassAreaCounts.Count; i++)
+        {
+            activeLevelView.Level.PassAreaCounts[i] = EditorGUILayout.IntField(activeLevelView.Level.PassAreaCounts[i]);
+        }
         EditorGUILayout.EndScrollView();
     }
 

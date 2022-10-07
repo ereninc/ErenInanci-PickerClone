@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53403452db7148a4c948c330b14eca89, type: 3}
   m_Name: test
   m_EditorClassIdentifier: 
-  Name: Test
+  Name: 
   RoadDatas:
   - Type: 0
     Position: {x: 0, y: 0, z: 15}
@@ -20,7 +20,11 @@ MonoBehaviour:
     Position: {x: 0, y: 0, z: 30}
   - Type: 1
     Position: {x: 0, y: 0, z: 47.5}
-  PassAreaCounts: 
+  - Type: 0
+    Position: {x: 0, y: 0, z: 77.5}
+  - Type: 0
+    Position: {x: 0, y: 0, z: 107.5}
+  PassAreaCounts: 0a0000000c0000000f0000001400000019000000
   LineDatas:
   - Id: 0
     Type: 0
