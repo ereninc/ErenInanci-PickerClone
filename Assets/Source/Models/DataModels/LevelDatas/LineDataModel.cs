@@ -16,9 +16,6 @@ public class LineDataModel
     public int MaxItemCount;
     public int IncPerLevelCount;
     public int StartItemCount;
-    public int MaxLineValue;
-    public int IncPerLevelValue;
-    public int StartLineValue;
 
     public int GetItemCount(int playerCompletedCount)
     {
@@ -27,12 +24,12 @@ public class LineDataModel
         return count;
     }
 
-    public int GetLineValue(int playerCompletedCount)
-    {
-        int maxValue = StartLineValue + (playerCompletedCount * IncPerLevelValue);
-        maxValue = maxValue > MaxLineValue ? MaxLineValue : maxValue;
-        return maxValue;
-    }
+    //public int GetLineValue(int playerCompletedCount)
+    //{
+    //    int maxValue = StartLineValue + (playerCompletedCount * IncPerLevelValue);
+    //    maxValue = maxValue > MaxLineValue ? MaxLineValue : maxValue;
+    //    return maxValue;
+    //}
 
     public Vector3 GetSpawnPosition(int maxItemCount, int index)
     {

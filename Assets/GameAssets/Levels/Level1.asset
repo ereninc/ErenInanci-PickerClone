@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53403452db7148a4c948c330b14eca89, type: 3}
-  m_Name: Level0
+  m_Name: Level1
   m_EditorClassIdentifier: 
-  Name: Entry
+  Name: Level1
   RoadDatas:
   - Type: 0
     Position: {x: 0, y: 0, z: 0}

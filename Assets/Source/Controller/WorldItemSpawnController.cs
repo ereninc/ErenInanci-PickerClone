@@ -70,7 +70,7 @@ public class WorldItemSpawnController : ControllerBaseModel
                 LineDataModel dataModel = activeLevel.LineDatas[i];
                 int maxItemCount = dataModel.GetItemCount(PlayerDataModel.Data.CompletedLevelCount);
                 maxItemCount = maxItemCount == 0 ? 1 : maxItemCount;
-                int value = dataModel.GetLineValue(PlayerDataModel.Data.CompletedLevelCount) / maxItemCount;
+                //int value = dataModel.GetLineValue(PlayerDataModel.Data.CompletedLevelCount) / maxItemCount;
 
                 for (int j = roadlineDataIndex[i]; j < maxItemCount; j++)
                 {
@@ -82,7 +82,7 @@ public class WorldItemSpawnController : ControllerBaseModel
                         switch (dataModel.Type)
                         {
                             case RoadItemType.Pickable:
-                                spawnPickable(dataModel.Id, value, pos);
+                                spawnPickable(dataModel.Id/*, value*/, pos);
                                 break;
                             case RoadItemType.PowerUp:
                                 //spawnPowerUp(dataModel.Id, pos);
@@ -175,7 +175,6 @@ public class WorldItemSpawnController : ControllerBaseModel
             LineDataModel dataModel = activeLevel.LineDatas[i];
             int maxItemCount = dataModel.GetItemCount(PlayerDataModel.Data.CompletedLevelCount);
             maxItemCount = maxItemCount == 0 ? 1 : maxItemCount;
-            int value = dataModel.GetLineValue(PlayerDataModel.Data.CompletedLevelCount) / maxItemCount;
 
             for (int j = roadlineDataIndex[i]; j < maxItemCount; j++)
             {
@@ -187,7 +186,7 @@ public class WorldItemSpawnController : ControllerBaseModel
                     switch (dataModel.Type)
                     {
                         case RoadItemType.Pickable:
-                            spawnPickable(dataModel.Id, value, pos);
+                            spawnPickable(dataModel.Id, pos);
                             break;
                         case RoadItemType.PowerUp:
                             spawnPowerUp(dataModel.Id, pos);
@@ -204,7 +203,7 @@ public class WorldItemSpawnController : ControllerBaseModel
         }
     }
 
-    private void spawnPickable(int id, int value, Vector3 pos)
+    private void spawnPickable(int id, Vector3 pos)
     {
         PickableModel pickable = pickableModelPool.GetDeactiveItem<PickableModel>();
         pickable.OnSpawn(pos);

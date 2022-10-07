@@ -1,0 +1,600 @@
+using Newtonsoft.Json;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+
+public class LevelEditor : EditorWindow
+{
+    private LevelEditorData data;
+    private LevelView activeLevelView;
+    private Vector2 lineScrollPos;
+    private bool isAutoSaved;
+
+    [MenuItem("Level Editor/Editor")]
+    static void Init()
+    {
+        LevelEditor editor = GetWindow<LevelEditor>();
+        editor.loadEditorData();
+        editor.Show();
+    }
+
+    private void loadEditorData()
+    {
+        data = JsonConvert.DeserializeObject<LevelEditorData>(EditorPrefs.GetString("LevelEditorData"));
+        if (data == null)
+        {
+            data = new LevelEditorData();
+            data.LineDebugColors = new List<Color32>();
+            data.LineDebugShowLines = new List<bool>();
+            data.BezierLineColor = Color.white;
+            data.ActiveTab = 0;
+        }
+    }
+
+    void OnFocus()
+    {
+        SceneView.duringSceneGui -= this.OnSceneGUI;
+        SceneView.duringSceneGui += this.OnSceneGUI;
+    }
+
+    void OnDestroy()
+    {
+        EditorPrefs.SetString("LevelEditorData", JsonConvert.SerializeObject(data));
+        SceneView.duringSceneGui -= this.OnSceneGUI;
+    }
+
+    private void OnGUI()
+    {
+        if (data == null)
+        {
+            loadEditorData();
+        }
+
+        if (EditorApplication.isCompiling)
+        {
+            if (isAutoSaved == false)
+            {
+                isAutoSaved = true;
+                EditorPrefs.SetString("LevelEditorData", JsonConvert.SerializeObject(data));
+            }
+        }
+        else
+        {
+            isAutoSaved = false;
+        }
+
+
+        mainView();
+    }
+
+    void OnSceneGUI(SceneView sceneView)
+    {
+        sceneUpdate();
+    }
+
+    #region Window
+
+    private void mainView()
+    {
+        EditorGUILayout.Space(10);
+        if (activeLevelView == null)
+        {
+            EditorGUILayout.LabelField("PAGES");
+        }
+        else
+        {
+            EditorGUILayout.LabelField("Active Level : ");
+            EditorGUILayout.ObjectField("", activeLevelView.Level, typeof(LevelModel), true);
+        }
+        EditorGUILayout.Space(10);
+        EditorGUILayout.BeginHorizontal();
+
+        EditorGUI.BeginDisabledGroup(data.ActiveTab == 0);
+        if (GUILayout.Button("Setting"))
+        {
+            data.ActiveTab = 0;
+        }
+        EditorGUI.EndDisabledGroup();
+
+        EditorGUI.BeginDisabledGroup(data.ActiveTab == 1);
+
+        if (GUILayout.Button("Edit Loaded Level or Create New"))
+        {
+            data.ActiveTab = 1;
+        }
+        EditorGUI.EndDisabledGroup();
+
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.Space(10);
+
+        switch (data.ActiveTab)
+        {
+            case 0:
+                settingsView();
+                break;
+            case 1:
+                levelView();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void settingsView()
+    {
+        EditorGUILayout.LabelField("Save & Load");
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("Load Level"))
+        {
+            var path = EditorUtility.OpenFilePanel("Save Level", "Assets", "asset");
+
+            if (path.Length > 0)
+            {
+                LevelModel loadedLevel = (LevelModel)AssetDatabase.LoadMainAssetAtPath(path.Remove(0, path.IndexOf("Assets")));
+
+                if (loadedLevel != null)
+                {
+                    loadLevel(loadedLevel);
+                    data.ActiveTab = 1;
+                }
+            }
+        }
+
+
+        EditorGUI.BeginDisabledGroup(activeLevelView == null);
+        if (GUILayout.Button("Save Level"))
+        {
+            var path = EditorUtility.SaveFilePanel("Save Level", "Assets", "", "asset");
+            if (path.Length > 0)
+            {
+                AssetDatabase.CreateAsset(activeLevelView.Level, path.Remove(0, path.IndexOf("Assets")));
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
+
+            activeLevelView = null;
+        }
+
+        EditorGUI.EndDisabledGroup();
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.Space(10);
+        EditorGUILayout.LabelField("Levels are editable after load.");
+
+        EditorGUILayout.Space(10);
+
+        EditorGUILayout.LabelField("Close Loaded Level");
+        EditorGUI.BeginDisabledGroup(activeLevelView == null);
+        if (GUILayout.Button("Close Level"))
+        {
+            activeLevelView = null;
+        }
+        EditorGUI.EndDisabledGroup();
+
+
+        EditorGUILayout.Space(10);
+
+        EditorGUILayout.LabelField("Delete");
+        EditorGUI.BeginDisabledGroup(activeLevelView == null);
+        if (GUILayout.Button("Delete Level"))
+        {
+            activeLevelView = null;
+        }
+        EditorGUI.EndDisabledGroup();
+    }
+
+    private void loadLevel(LevelModel loadedLevel)
+    {
+        activeLevelView = new LevelView
+        {
+            Level = ScriptableObject.CreateInstance<LevelModel>(),
+            LineDataViews = new List<LineDataView>()
+        };
+
+        activeLevelView.Level.LineDatas = new List<LineDataModel>();
+        activeLevelView.Level.RoadDatas = new List<WorldItemDataModel>();
+
+        for (int i = 0; i < loadedLevel.RoadDatas.Count; i++)
+        {
+            activeLevelView.Level.RoadDatas.Add(loadedLevel.RoadDatas[i]);
+        }
+
+        for (int i = 0; i < loadedLevel.LineDatas.Count; i++)
+        {
+            LineDataModel lineData = loadedLevel.LineDatas[i];
+            activeLevelView.Level.LineDatas.Add(new LineDataModel()
+            {
+                Id = lineData.Id,
+                StartPoint = lineData.StartPoint,
+                ControlPointA = lineData.ControlPointA,
+                ControlPointB = lineData.ControlPointB,
+                EndPoint = lineData.EndPoint,
+                StartItemCount = lineData.StartItemCount,
+                IncPerLevelCount = lineData.IncPerLevelCount,
+                MaxItemCount = lineData.MaxItemCount,
+                Type = lineData.Type,
+            });
+        }
+
+        for (int i = 0; i < activeLevelView.Level.LineDatas.Count; i++)
+        {
+            activeLevelView.LineDataViews.Add(new LineDataView()
+            {
+                IsShowed = false,
+                LineData = activeLevelView.Level.LineDatas[i]
+            });
+        }
+    }
+
+    private void levelView()
+    {
+        if (activeLevelView == null)
+        {
+            if (GUILayout.Button("Create New Level"))
+            {
+                activeLevelView = new LevelView();
+                activeLevelView.Level = ScriptableObject.CreateInstance<LevelModel>();
+                activeLevelView.Level.RoadDatas = new List<WorldItemDataModel>();
+            }
+
+            return;
+        }
+
+        EditorGUILayout.Space(5);
+        EditorGUILayout.LabelField("Lines");
+        EditorGUILayout.Space(5);
+
+        drawLineDebug();
+
+        if (activeLevelView.LineDataViews == null)
+        {
+            activeLevelView.LineDataViews = new List<LineDataView>();
+            activeLevelView.Level.LineDatas = new List<LineDataModel>();
+        }
+
+        EditorGUILayout.Space(10);
+        EditorGUILayout.BeginHorizontal();
+        data.NewLineItemType = (RoadItemType)EditorGUILayout.EnumPopup("Item Type", data.NewLineItemType);
+
+        if (GUILayout.Button("Add Line"))
+        {
+            LineDataModel lineData = new LineDataModel();
+            LineDataView lineDataView = new LineDataView();
+
+            lineDataView.LineData = lineData;
+            lineData.Type = data.NewLineItemType;
+
+            activeLevelView.Level.LineDatas.Add(lineData);
+            activeLevelView.LineDataViews.Add(lineDataView);
+        }
+
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.Space(10);
+
+        lineScrollPos = EditorGUILayout.BeginScrollView(lineScrollPos);
+        for (int i = 0; i < activeLevelView.Level.LineDatas.Count; i++)
+        {
+            drawLineDataModel(activeLevelView.LineDataViews[i]);
+        }
+
+        EditorGUILayout.EndScrollView();
+    }
+
+    private void drawLineDebug()
+    {
+        activeLevelView.ShowLineDebug = EditorGUILayout.Foldout(activeLevelView.ShowLineDebug, "Show Debug Settings");
+        string[] itemTypes = System.Enum.GetNames(typeof(RoadItemType));
+
+        if (data.LineDebugColors.Count < itemTypes.Length)
+        {
+            for (int i = 0; i < itemTypes.Length; i++)
+            {
+                if (i >= data.LineDebugColors.Count)
+                {
+                    data.LineDebugColors.Add(Color.white);
+                }
+            }
+        }
+
+        if (data.LineDebugShowLines.Count < itemTypes.Length)
+        {
+            for (int i = 0; i < itemTypes.Length; i++)
+            {
+                if (i >= data.LineDebugShowLines.Count)
+                {
+                    data.LineDebugShowLines.Add(true);
+                }
+            }
+        }
+
+        if (activeLevelView.ShowLineDebug)
+        {
+            EditorGUI.indentLevel++;
+
+            for (int i = 0; i < itemTypes.Length; i++)
+            {
+                string enumName = itemTypes[i];
+                data.LineDebugColors[i] = EditorGUILayout.ColorField(enumName + " Color", data.LineDebugColors[i]);
+            }
+
+            data.BezierLineColor = EditorGUILayout.ColorField("Bezier Line Color", data.BezierLineColor);
+
+            EditorGUILayout.Space(5);
+
+            for (int i = 0; i < itemTypes.Length; i++)
+            {
+                string enumName = itemTypes[i];
+                data.LineDebugShowLines[i] = EditorGUILayout.Toggle("Show " + enumName + " Line", data.LineDebugShowLines[i]);
+            }
+
+            EditorGUI.indentLevel--;
+        }
+
+    }
+
+
+    private void drawLineDataModel(LineDataView lineView)
+    {
+        EditorGUILayout.Space(5);
+        string name = "";
+
+        switch (lineView.LineData.Type)
+        {
+            case RoadItemType.Pickable:
+                name = "Pickable Line";
+                break;
+            case RoadItemType.PowerUp:
+                name = "PowerUp Line";
+                break;
+            default:
+                break;
+        }
+
+        EditorGUILayout.BeginHorizontal();
+        lineView.IsShowed = EditorGUILayout.Foldout(lineView.IsShowed, name);
+
+        if (GUILayout.Button("Add Pickable", GUILayout.MaxWidth(100)))
+        {
+            LineDataView lineData = new LineDataView(); 
+            lineData.IsShowed = lineView.IsShowed;
+            lineData.IsShowPositions = lineView.IsShowPositions;
+            lineData.LineData = new LineDataModel();
+
+            lineData.LineData.Id = lineView.LineData.Id;
+            lineData.LineData.StartPoint = lineView.LineData.StartPoint;
+            lineData.LineData.EndPoint = lineView.LineData.EndPoint;
+            lineData.LineData.ControlPointA = lineView.LineData.ControlPointA;
+            lineData.LineData.ControlPointB = lineView.LineData.ControlPointB;
+
+            lineData.LineData.IncPerLevelCount = lineView.LineData.IncPerLevelCount;
+            lineData.LineData.StartItemCount = ++lineView.LineData.StartItemCount;
+            lineData.LineData.MaxItemCount = ++lineView.LineData.MaxItemCount;
+            lineData.LineData.Type = lineView.LineData.Type;
+        }
+
+        if (GUILayout.Button("Copy", GUILayout.MaxWidth(50)))
+        {
+            LineDataView lineData = new LineDataView();
+            lineData.IsShowed = lineView.IsShowed;
+            lineData.IsShowPositions = lineView.IsShowPositions;
+            lineData.LineData = new LineDataModel();
+
+            lineData.LineData.Id = lineView.LineData.Id;
+            lineData.LineData.StartPoint = lineView.LineData.StartPoint;
+            lineData.LineData.EndPoint = lineView.LineData.EndPoint;
+            lineData.LineData.ControlPointA = lineView.LineData.ControlPointA;
+            lineData.LineData.ControlPointB = lineView.LineData.ControlPointB;
+
+            lineData.LineData.IncPerLevelCount = lineView.LineData.IncPerLevelCount;
+            lineData.LineData.MaxItemCount = lineView.LineData.MaxItemCount;
+            lineData.LineData.Type = lineView.LineData.Type;
+
+
+            activeLevelView.Level.LineDatas.Add(lineData.LineData);
+            activeLevelView.LineDataViews.Add(lineData);
+        }
+
+        if (GUILayout.Button("-", GUILayout.MaxWidth(50)))
+        {
+            activeLevelView.Level.LineDatas.Remove(lineView.LineData);
+            activeLevelView.LineDataViews.Remove(lineView);
+        }
+
+        EditorGUILayout.EndHorizontal();
+
+
+        if (lineView.IsShowed)
+        {
+            EditorGUI.indentLevel++;
+
+            lineView.LineData.Type = (RoadItemType)EditorGUILayout.EnumPopup("Change Type", lineView.LineData.Type);
+
+            switch (lineView.LineData.Type)
+            {
+                case RoadItemType.Pickable:
+                    lineView.LineData.Id = EditorGUILayout.IntField(new GUIContent("Pickable Id", "-1 for Random Pickable"), lineView.LineData.Id);
+                    lineView.LineData.StartItemCount = EditorGUILayout.IntField(new GUIContent("Start Pickable Count", "Start Pickable Count in Single Line"), lineView.LineData.StartItemCount);
+                    lineView.LineData.MaxItemCount = EditorGUILayout.IntField(new GUIContent("Max Pickable Count", "Max Pickable Count in Single Line"), lineView.LineData.MaxItemCount);
+                    lineView.LineData.IncPerLevelCount = EditorGUILayout.IntField(new GUIContent("Increase Count", "Increase count per level"), lineView.LineData.IncPerLevelCount);
+                    break;
+                case RoadItemType.PowerUp:
+                    lineView.LineData.Id = EditorGUILayout.IntField(new GUIContent("Powerup Id", "-1 for Random Powerups"), lineView.LineData.Id);
+                    lineView.LineData.StartItemCount = EditorGUILayout.IntField(new GUIContent("Total PowerUp Count", "Total PowerUp Count in Single Line"), lineView.LineData.StartItemCount);
+                    break;
+                default:
+                    break;
+            }
+
+            lineView.IsShowPositions = EditorGUILayout.Foldout(lineView.IsShowPositions, "Show Control Points");
+
+            if (lineView.IsShowPositions)
+            {
+                EditorGUI.indentLevel++;
+                lineView.LineData.StartPoint = EditorGUILayout.Vector3Field("Start Point", lineView.LineData.StartPoint);
+                lineView.LineData.ControlPointA = EditorGUILayout.Vector3Field("Control Point A", lineView.LineData.ControlPointA);
+                lineView.LineData.ControlPointB = EditorGUILayout.Vector3Field("Control Point B", lineView.LineData.ControlPointB);
+                lineView.LineData.EndPoint = EditorGUILayout.Vector3Field("End Point", lineView.LineData.EndPoint);
+                EditorGUI.indentLevel--;
+            }
+
+            EditorGUI.indentLevel--;
+        }
+
+    }
+
+    private Texture2D makeBackgroundTexture(int width, int height, Color color)
+    {
+        Color[] pixels = new Color[width * height];
+
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i] = color;
+        }
+
+        Texture2D backgroundTexture = new Texture2D(width, height);
+
+        backgroundTexture.SetPixels(pixels);
+        backgroundTexture.Apply();
+
+        return backgroundTexture;
+    }
+
+    #endregion
+
+    #region Scene
+
+    private void sceneUpdate()
+    {
+        if (activeLevelView != null)
+        {
+            if (activeLevelView.LineDataViews != null)
+            {
+                for (int i = 0; i < activeLevelView.LineDataViews.Count; i++)
+                {
+                    drawSceneLineDataModel(activeLevelView.Level.LineDatas[i]);
+                }
+            }
+        }
+    }
+
+    private void drawSceneLineDataModel(LineDataModel lineData)
+    {
+        if (data.LineDebugShowLines[(int)lineData.Type] == false)
+        {
+            return;
+        }
+
+        lineData.StartPoint = drawTransformHandle(lineData.StartPoint, 0);
+        lineData.ControlPointA = drawTransformHandle(lineData.ControlPointA, 0);
+        lineData.ControlPointB = drawTransformHandle(lineData.ControlPointB, 0);
+        lineData.EndPoint = drawTransformHandle(lineData.EndPoint, 0);
+
+        drawLine(lineData.StartPoint, lineData.ControlPointA, 1, data.BezierLineColor);
+        drawLine(lineData.ControlPointA, lineData.ControlPointB, 1, data.BezierLineColor);
+        drawLine(lineData.ControlPointB, lineData.EndPoint, 1, data.BezierLineColor);
+
+        drawLabel("Start Point", lineData.StartPoint, data.BezierLineColor);
+        drawLabel("Control A Point", lineData.ControlPointA, data.BezierLineColor);
+        drawLabel("Control B Point", lineData.ControlPointB, data.BezierLineColor);
+        drawLabel("End Point", lineData.EndPoint, data.BezierLineColor);
+        Color color = data.LineDebugColors[(int)lineData.Type];
+
+        for (int i = 0; i < lineData.StartItemCount; i++)
+        {
+            float currentTime = (float)(i) / (float)lineData.StartItemCount;
+            float nextTime = (float)(i + 1) / (float)lineData.StartItemCount;
+
+            Vector3 currentPos = Helpers.Maths.CalculateCubicBezierPoint(currentTime, lineData.StartPoint, lineData.ControlPointA, lineData.ControlPointB, lineData.EndPoint);
+            Vector3 nextPos = Helpers.Maths.CalculateCubicBezierPoint(nextTime, lineData.StartPoint, lineData.ControlPointA, lineData.ControlPointB, lineData.EndPoint);
+
+
+            drawSphere(currentPos, 1, color);
+            drawLine(currentPos, nextPos, 1, color);
+        }
+    }
+
+    private void drawSphere(Vector3 pos, float r, Color color)
+    {
+        Color defColor = Handles.color;
+        Handles.color = color;
+        Handles.SphereHandleCap(0, pos, Quaternion.identity, r, EventType.Repaint);
+        Handles.color = defColor;
+    }
+
+    private void drawLabel(string label, Vector3 pos, Color color)
+    {
+        Color defColor = Handles.color;
+        Handles.color = color;
+        Handles.Label(pos, label);
+        Handles.color = defColor;
+    }
+
+    private void drawLine(Vector3 aPoint, Vector3 bPoint, float thickness, Color color)
+    {
+        Color defColor = Handles.color;
+        Handles.color = color;
+
+        Handles.DrawLine(aPoint, bPoint/*, thickness*/);
+
+        Handles.color = defColor;
+
+    }
+
+    private Vector3 drawTransformHandle(Vector3 pos, int type)
+    {
+        if (Tools.current == Tool.Move)
+        {
+            EditorGUI.BeginChangeCheck();
+
+            Handles.SetCamera(SceneView.lastActiveSceneView.camera);
+            Vector3 position = Vector3.zero;
+
+            switch (type)
+            {
+                case 0:
+                    position = Handles.PositionHandle(pos, Quaternion.identity);
+                    break;
+                case 1:
+                    position = Handles.FreeMoveHandle(pos, Quaternion.identity, 1, Vector3.one, Handles.SphereHandleCap);
+                    break;
+                default:
+                    break;
+            }
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                pos = position;
+            }
+        }
+
+        return pos;
+    }
+
+    #endregion
+}
+
+public class LevelEditorData
+{
+    public int ActiveTab = 0;
+    public RoadItemType NewLineItemType;
+    public List<Color32> LineDebugColors;
+    public Color32 BezierLineColor;
+    public List<bool> LineDebugShowLines;
+}
+
+public class LevelView
+{
+    public LevelModel Level;
+    public List<LineDataView> LineDataViews;
+    public bool ShowLineDebug;
+}
+
+public class LineDataView
+{
+    public LineDataModel LineData;
+    public bool IsShowed;
+    public bool IsShowPositions;
+}
