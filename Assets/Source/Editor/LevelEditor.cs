@@ -13,8 +13,10 @@ public class LevelEditor : EditorWindow
     private bool isAutoSaved;
     private bool showRoads;
     private bool showAreas;
+    private bool showInstructions;
     private int createRoadCount;
     private int passAreaCount;
+    private GUIStyle instructionStyle;
 
     [MenuItem("Level Editor/Editor")]
     static void Init()
@@ -28,6 +30,7 @@ public class LevelEditor : EditorWindow
     {
         data = JsonConvert.DeserializeObject<LevelEditorData>(EditorPrefs.GetString("LevelEditorData"));
         data.ActiveTab = 0;
+        initInstruction();
         if (data == null)
         {
             data = new LevelEditorData();
@@ -184,6 +187,11 @@ public class LevelEditor : EditorWindow
         {
             activeLevelView = null;
         }
+        EditorGUI.EndDisabledGroup();
+
+        showInstructions = EditorGUILayout.Foldout(showInstructions, "Show Instructions");
+        if (showInstructions)
+            showInstruction();
         EditorGUI.EndDisabledGroup();
     }
 
@@ -533,6 +541,32 @@ public class LevelEditor : EditorWindow
             EditorGUI.indentLevel--;
         }
 
+    }
+
+    private void showInstruction()
+    {
+        EditorGUILayout.Space(10);
+        EditorGUILayout.LabelField("LEVEL CREATION INSTRUCTIONS", instructionStyle);
+        EditorGUILayout.LabelField("Step 1: To create level, go to Edit or Create Level Page", instructionStyle);
+        EditorGUILayout.LabelField("Step 2: Create Level and edit variables.", instructionStyle);
+        EditorGUILayout.LabelField("Step 3: Then go Setting page and Save Level.", instructionStyle);
+
+        EditorGUILayout.Space(25);
+        EditorGUILayout.LabelField("LEVEL EDIT INSTRUCTIONS", instructionStyle);
+        EditorGUILayout.LabelField("Step 1: To edit level, Load Level from Setting page", instructionStyle);
+        EditorGUILayout.LabelField("Step 2: Once you load level, page will changes automatically to edit page.", instructionStyle);
+        EditorGUILayout.LabelField("Step 3: Edit level variables.", instructionStyle);
+        EditorGUILayout.LabelField("Step 4: Then go Setting page and Save Level.", instructionStyle);
+        EditorGUILayout.Space(10);
+    }
+
+    private void initInstruction()
+    {
+        showInstructions = true;
+        instructionStyle = new GUIStyle();
+        instructionStyle.normal.textColor = Color.red;
+        instructionStyle.fontSize = 18;
+        instructionStyle.fontStyle = FontStyle.Bold;
     }
 
     #endregion

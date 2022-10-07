@@ -7,6 +7,11 @@ public class LoseScreen : ScreenElement
 {
     public void RestartLevel()
     {
+        Animator.Play("Outro");
+    }
+
+    public void Reload()
+    {
         GameController.ReloadGame();
     }
 }
