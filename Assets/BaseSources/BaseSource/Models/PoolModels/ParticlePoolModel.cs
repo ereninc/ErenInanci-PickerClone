@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ParticlePoolModel : PoolModel
 {
-    public void SetParticle(Vector3 pos, VibrationTypes type)
+    public void SetParticle(Vector3 pos)
     {
         ParticleBaseModel particle = GetDeactiveItem<ParticleBaseModel>();
         if(particle != null)
@@ -12,12 +12,11 @@ public class ParticlePoolModel : PoolModel
             particle.transform.position = pos;
             particle.SetActiveGameObject(true);
             particle.Play();
-            VibrateController.SetHaptic(type);
         }
 
     }
 
-    public void SetParticle(Vector3 pos, Quaternion rotation, VibrationTypes type)
+    public void SetParticle(Vector3 pos, Quaternion rotation)
     {
         ParticleBaseModel particle = GetDeactiveItem<ParticleBaseModel>();
         if (particle != null)
@@ -26,7 +25,6 @@ public class ParticlePoolModel : PoolModel
             particle.transform.rotation = rotation;
             particle.SetActiveGameObject(true);
             particle.Play();
-            VibrateController.SetHaptic(type);
         }
     }
 

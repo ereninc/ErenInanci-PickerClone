@@ -60,7 +60,8 @@ public class PassAreaModel : ObjectModel
     {
         if (other.CompareTag("Pickable"))
         {
-            pickables.Add(other.GetComponent<PickableModel>());
+            PickableModel pickable = other.GetComponent<PickableModel>();
+            pickables.Add(pickable);
             onPickableEnter();
         }
     }

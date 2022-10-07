@@ -14,7 +14,7 @@ public class CharacterModel : ObjectModel
             case "PassArea":
                 PassAreaModel passArea = other.GetComponent<PassAreaModel>();
                 onEnterPassArea();
-                this.Invoke(() => checkArea(passArea), 2f);
+                this.Invoke(() => checkArea(passArea), 2.5f);
                 break;
             case "Finish":
                 onLevelCompleted();
