@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeModel : ObjectModel
+public class PowerUpModel : ObjectModel
 {
-    public void OnStart() 
+    public void OnSpawn(Vector3 pos) 
     {
         this.SetActiveGameObject(true);
+        transform.position = pos;
     }
 
-    public void OnEnd() 
+    public void OnCollect() 
     {
         this.SetActiveGameObject(false);
     }

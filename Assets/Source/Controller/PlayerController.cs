@@ -64,10 +64,7 @@ public class PlayerController : ControllerBaseModel
         lastXPosition = pointerController.PointerPosition.x;
     }
 
-    public void OnPointerUp() 
-    {
-
-    }
+    public void OnPointerUp() { }
 
     public void OnEnterPassArea() 
     {
@@ -85,8 +82,7 @@ public class PlayerController : ControllerBaseModel
     {
         xPos = transform.position.x + xDiff * Time.deltaTime * sensitive;
         xPos = Mathf.Clamp(xPos, -roadXLimit, roadXLimit);
-        movePosition = new Vector3(xPos, 0.8f, 
-            transform.position.z + (ForwardSpeed + ExtraForwardSpeed) * Time.fixedDeltaTime);
+        movePosition = new Vector3(xPos, 0.8f, transform.position.z + (ForwardSpeed + ExtraForwardSpeed) * Time.fixedDeltaTime);
         rigid.MovePosition(movePosition);
     }
 

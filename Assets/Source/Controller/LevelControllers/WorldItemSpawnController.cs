@@ -7,7 +7,7 @@ public class WorldItemSpawnController : ControllerBaseModel
     [SerializeField] private MultiplePoolModel roadPools;
     [SerializeField] private PoolModel passAreaPool;
     [SerializeField] private PoolModel pickableModelPool;
-    [SerializeField] private PoolModel powerUpModelPool;
+    [SerializeField] private PoolModel powerUpPool;
     [SerializeField] private FinishController finishController;
     private LevelModel activeLevel;
     private int roadIndex;
@@ -15,6 +15,7 @@ public class WorldItemSpawnController : ControllerBaseModel
     private Vector3 lastLevelPosition;
     private int passAreaIndex;
     private List<int> roadlineDataIndex;
+    private float playerZPos;
 
     public override void Initialize()
     {
@@ -27,14 +28,14 @@ public class WorldItemSpawnController : ControllerBaseModel
         base.ControllerUpdate(currentState);
         if (currentState == GameStates.Game)
         {
-            float playerPos = PlayerController.Instance.transform.position.z;
+            playerZPos = PlayerController.Instance.transform.position.z;
             if (roadIndex == activeLevel.RoadDatas.Count - 1)
             {
                 onLevelSpawnComplete();
             }
             for (int i = roadIndex; i < activeLevel.RoadDatas.Count; i++)
             {
-                if (Mathf.Abs(playerPos - (activeLevel.RoadDatas[roadIndex].Position.z + lastLevelPosition.z)) < GameValues.LevelSpawnDistance)
+                if (Mathf.Abs(playerZPos - (activeLevel.RoadDatas[roadIndex].Position.z + lastLevelPosition.z)) < GameValues.LevelSpawnDistance)
                 {
                     switch (activeLevel.RoadDatas[i].Type)
                     {
@@ -73,7 +74,7 @@ public class WorldItemSpawnController : ControllerBaseModel
                 {
                     Vector3 pos = dataModel.GetSpawnPosition(maxItemCount, j) + lastLevelPosition;
 
-                    if (Mathf.Abs(playerPos - pos.z) < GameValues.RoadItemSpawnDistance)
+                    if (Mathf.Abs(playerZPos - pos.z) < GameValues.RoadItemSpawnDistance)
                     {
                         roadlineDataIndex[i] = j + 1;
                         switch (dataModel.Type)
@@ -208,7 +209,7 @@ public class WorldItemSpawnController : ControllerBaseModel
 
     private void spawnPowerUp(int id, Vector3 pos)
     {
-        UpgradeModel powerUp = powerUpModelPool.GetDeactiveItem<UpgradeModel>();
+        PowerUpModel powerUp = powerUpPool.GetDeactiveItem<PowerUpModel>();
         powerUp.OnSpawn(pos);
     }
 }

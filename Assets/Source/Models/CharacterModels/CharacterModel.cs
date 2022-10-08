@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterModel : ObjectModel
 {
     [SerializeField] private LevelBarController levelBarController;
+    [SerializeField] private UpgradeModel upgradeModel;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,9 +19,9 @@ public class CharacterModel : ObjectModel
                 onLevelCompleted();
                 break;
             case "PowerUp":
-                UpgradeModel upgrade = other.GetComponent<UpgradeModel>();
-                upgrade.SetActiveGameObject(false);
-                Debug.Log("UPGRADED");
+                PowerUpModel powerUp = other.GetComponent<PowerUpModel>();
+                powerUp.OnCollect();
+                onUpgradeStart();
                 break;
             default:
                 break;
@@ -36,11 +37,12 @@ public class CharacterModel : ObjectModel
 
     private void onEnterPassArea(PassAreaModel passArea)
     {
+        onUpgradeEnd();
         PlayerController.Instance.OnEnterPassArea();
         this.Invoke(() => checkArea(passArea), 2.5f);
     }
 
-    private void onExitPassArea() 
+    private void onExitPassArea()
     {
         PlayerController.Instance.OnExitPassArea();
     }
@@ -59,5 +61,15 @@ public class CharacterModel : ObjectModel
             passArea.OnFailArea();
             levelBarController.OnAreaFailed();
         }
+    }
+
+    private void onUpgradeStart() 
+    { 
+        upgradeModel.OnStart();
+    }
+
+    private void onUpgradeEnd()
+    {
+        upgradeModel.OnEnd();
     }
 }
