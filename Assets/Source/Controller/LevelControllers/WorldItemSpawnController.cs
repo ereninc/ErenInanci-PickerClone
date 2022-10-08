@@ -159,7 +159,6 @@ public class WorldItemSpawnController : ControllerBaseModel
                     default:
                         break;
                 }
-
             }
             else
             {

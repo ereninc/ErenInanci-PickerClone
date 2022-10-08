@@ -5,12 +5,11 @@ using UnityEngine;
 public class ParticlesController : ControllerBaseModel
 {
     public static ParticlesController Instance;
-    [SerializeField] ParticlePoolModel[] particlePools;
+    [SerializeField] private ParticlePoolModel[] particlePools;
 
     public override void Initialize()
     {
         base.Initialize();
-
         if (Instance != null)
         {
             Destroy(Instance);

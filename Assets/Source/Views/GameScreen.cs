@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameScreen : ScreenElement
 {
-    [SerializeField] Text levelText, nextLevelText;
+    [SerializeField] private Text levelText, nextLevelText;
 
     public override void Initialize()
     {

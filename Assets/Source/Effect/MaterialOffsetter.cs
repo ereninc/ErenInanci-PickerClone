@@ -7,7 +7,7 @@ public class MaterialOffsetter : MonoBehaviour
     public Material Material;
     public Vector2 Speed;
     public bool IsActive;
-    Vector2 value;
+    private Vector2 value;
 
     private void Update()
     {
@@ -17,5 +17,4 @@ public class MaterialOffsetter : MonoBehaviour
             Material.SetTextureOffset("_BaseMap", value);
         }
     }
-
 }

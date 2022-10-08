@@ -5,10 +5,10 @@ using Cinemachine;
 
 public class CinemachineShake : ObjectModel
 {
-    [SerializeField] CinemachineVirtualCamera camera;
-    [SerializeField] float shakeTimer;
-    CinemachineBasicMultiChannelPerlin channel;
-    float _intensity = 0;
+    [SerializeField] private CinemachineVirtualCamera camera;
+    [SerializeField] private float shakeTimer;
+    private CinemachineBasicMultiChannelPerlin channel;
+    private float _intensity = 0;
 
     public override void Initialize()
     {

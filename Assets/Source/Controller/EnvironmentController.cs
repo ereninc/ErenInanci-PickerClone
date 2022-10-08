@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnvironmentController : ControllerBaseModel
 {
-    [SerializeField] VisualEnvironmentModel[] visualEnvironments;
-    [SerializeField] Material bgMaterial;
+    [SerializeField] private VisualEnvironmentModel[] visualEnvironments;
+    [SerializeField] private Material bgMaterial;
 
     [EditorButton]
     public void LoadVisualModel(int visualIndex)
@@ -18,6 +18,4 @@ public class EnvironmentController : ControllerBaseModel
 
         RenderSettings.fogColor = visualEnvironment.FogColor;
     }
-
-
 }

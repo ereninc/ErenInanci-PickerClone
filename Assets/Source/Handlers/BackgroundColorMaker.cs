@@ -8,8 +8,8 @@ using UnityEditor;
 
 public class BackgroundColorMaker : ObjectModel
 {
-    [SerializeField] Gradient bgColor;
-    Texture2D createdTex;
+    [SerializeField] private Gradient bgColor;
+    private Texture2D createdTex;
 
     [EditorButton]
     public void LoadColorToRenderer(Renderer mainRenderer)

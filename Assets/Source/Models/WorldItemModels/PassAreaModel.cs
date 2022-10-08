@@ -10,8 +10,7 @@ public class PassAreaModel : ObjectModel
     [SerializeField] private TextMeshPro passedCounterText;
     [SerializeField] private PassAreaVisualModel passAreaVisualModel;
     [SerializeField] private Animator animator;
-
-    private List<PickableModel> pickables = new List<PickableModel>();
+    private List<PickableModel> pickables;
 
     public override void Initialize()
     {
