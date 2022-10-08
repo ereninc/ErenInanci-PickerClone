@@ -3526,7 +3526,7 @@ MonoBehaviour:
   ActiveLevel: {fileID: 0}
   CurrentLevelIndex: 0
   Levels:
-  - {fileID: 11400000, guid: 7753880653683ad4dafe7a1cb6a7f302, type: 2}
+  - {fileID: 11400000, guid: ad1f353e6207faf46bfaf39a6157c626, type: 2}
   - {fileID: 11400000, guid: 493dd8741212700409002026da5e171e, type: 2}
   - {fileID: 11400000, guid: 835981765353bff498905e1702288601, type: 2}
   - {fileID: 11400000, guid: 8925c8dc3dfbe2f4ca48e3f39cffdc57, type: 2}
@@ -3534,6 +3534,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1298e4e5cfaf9c942952dc116614b9e8, type: 2}
   - {fileID: 11400000, guid: bd5051241d01e984ab815b3460959d21, type: 2}
   - {fileID: 11400000, guid: f105cdcd35a617d458c71a029e3cebd3, type: 2}
+  - {fileID: 11400000, guid: 7753880653683ad4dafe7a1cb6a7f302, type: 2}
+  - {fileID: 11400000, guid: ad1f353e6207faf46bfaf39a6157c626, type: 2}
   onLevelComplete:
     m_PersistentCalls:
       m_Calls:
@@ -31474,7 +31476,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684089350}
-  m_LocalRotation: {x: 0.2181528, y: -8.026101e-16, z: 1.08900604e-16, w: 0.97591466}
+  m_LocalRotation: {x: 0.21815279, y: 0.0000000145422625, z: -0.0000000032507301,
+    w: 0.97591466}
   m_LocalPosition: {x: 0, y: 8.8, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -39310,7 +39313,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124040333}
-  m_LocalRotation: {x: 0.2181528, y: -8.026101e-16, z: 1.08900604e-16, w: 0.97591466}
+  m_LocalRotation: {x: 0.21815279, y: 0.0000000145422625, z: -0.0000000032507301,
+    w: 0.97591466}
   m_LocalPosition: {x: 0, y: 8.8, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
