@@ -35,10 +35,23 @@ public class LevelController : ControllerBaseModel
     public void NextLevel()
     {
         PlayerDataModel.Data.Level++;
-        PlayerDataModel.Data.LevelIndex = PlayerDataModel.Data.LevelIndex + 1 < Levels.Count ? PlayerDataModel.Data.LevelIndex + 1 : 0;
+        setLevel();
         PlayerDataModel.Data.Save();
         levelBarController.Initialize();
         onLevelComplete?.Invoke();
+    }
+
+    private void setLevel()
+    {
+        if (PlayerDataModel.Data.LevelIndex + 1 < Levels.Count)
+        {
+            PlayerDataModel.Data.LevelIndex++;
+        }
+        else
+        {
+            int randomLevel = Random.Range(Levels.Count - 5, Levels.Count);
+            PlayerDataModel.Data.LevelIndex = randomLevel;
+        }
     }
 
     [EditorButton]

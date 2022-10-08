@@ -32,6 +32,7 @@ public class CharacterModel : ObjectModel
 
     private void onLevelCompleted()
     {
+        IncomeController.Instance.OnLevelCompleted();
         LevelController.Instance.NextLevel();
         PlayerController.Instance.OnLevelCompleted();
         GameController.ChangeState(GameStates.Win);

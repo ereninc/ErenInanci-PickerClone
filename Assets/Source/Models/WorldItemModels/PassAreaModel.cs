@@ -11,6 +11,7 @@ public class PassAreaModel : ObjectModel
     [SerializeField] private PassAreaVisualModel passAreaVisualModel;
     [SerializeField] private Animator animator;
     [SerializeField] private ReactionScreen reaction;
+    [SerializeField] private IncomeController incomeController;
     private List<PickableModel> pickables;
 
     public override void Initialize()
@@ -71,5 +72,6 @@ public class PassAreaModel : ObjectModel
     {
         passedCounter++;
         passedCounterText.text = passedCounter.ToString() + " / " + maxPickableCount.ToString();
+        incomeController.UpdateIncome(1);
     }
 }
