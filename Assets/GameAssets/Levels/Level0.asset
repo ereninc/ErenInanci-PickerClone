@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53403452db7148a4c948c330b14eca89, type: 3}
   m_Name: Level0
   m_EditorClassIdentifier: 
-  Name: Entry
+  Name: Level0
   RoadDatas:
   - Type: 0
     Position: {x: 0, y: 0, z: 0}
@@ -36,7 +36,7 @@ MonoBehaviour:
     Position: {x: 0, y: 0, z: 195}
   - Type: 0
     Position: {x: 0, y: 0, z: 225}
-  PassAreaCounts: 0a0000000c0000000f000000
+  PassAreaCounts: 0f0000001400000019000000
   LineDatas:
   - Id: 0
     Type: 0
@@ -49,19 +49,19 @@ MonoBehaviour:
     StartItemCount: 20
   - Id: 0
     Type: 0
-    StartPoint: {x: 0, y: 0.625, z: 50}
-    EndPoint: {x: 0, y: 0.625, z: 100}
-    ControlPointA: {x: -4, y: 0.625, z: 65}
-    ControlPointB: {x: 4, y: 0.625, z: 85}
+    StartPoint: {x: 0, y: 0.625, z: 57}
+    EndPoint: {x: 0, y: 0.625, z: 107}
+    ControlPointA: {x: -4, y: 0.625, z: 72}
+    ControlPointB: {x: 4, y: 0.625, z: 92}
     MaxItemCount: 20
     IncPerLevelCount: 0
     StartItemCount: 20
   - Id: 0
     Type: 0
-    StartPoint: {x: 0, y: 0.625, z: 55}
-    EndPoint: {x: 0, y: 0.625, z: 105}
-    ControlPointA: {x: 4, y: 0.625, z: 90}
-    ControlPointB: {x: -4, y: 0.625, z: 70}
+    StartPoint: {x: 0, y: 0.625, z: 52}
+    EndPoint: {x: 0, y: 0.625, z: 102}
+    ControlPointA: {x: 4, y: 0.625, z: 87}
+    ControlPointB: {x: -4, y: 0.625, z: 67}
     MaxItemCount: 20
     IncPerLevelCount: 0
     StartItemCount: 20
@@ -85,10 +85,19 @@ MonoBehaviour:
     StartItemCount: 15
   - Id: 0
     Type: 1
-    StartPoint: {x: 0, y: 1.25, z: 4}
-    EndPoint: {x: 0, y: 1.25, z: 4}
-    ControlPointA: {x: 0, y: 1.25, z: 4}
-    ControlPointB: {x: 0, y: 1.25, z: 4}
+    StartPoint: {x: 0, y: 1, z: 4}
+    EndPoint: {x: 0, y: 1, z: 4}
+    ControlPointA: {x: 0, y: 1, z: 4}
+    ControlPointB: {x: 0, y: 1, z: 4}
+    MaxItemCount: 1
+    IncPerLevelCount: 0
+    StartItemCount: 1
+  - Id: 1
+    Type: 1
+    StartPoint: {x: 0, y: 1, z: 55}
+    EndPoint: {x: 0, y: 1, z: 55}
+    ControlPointA: {x: 0, y: 1, z: 55}
+    ControlPointB: {x: 0, y: 1, z: 55}
     MaxItemCount: 1
     IncPerLevelCount: 0
     StartItemCount: 1

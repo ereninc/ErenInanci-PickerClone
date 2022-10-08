@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53403452db7148a4c948c330b14eca89, type: 3}
   m_Name: Level2
   m_EditorClassIdentifier: 
-  Name: Level1
+  Name: Level2
   RoadDatas:
   - Type: 0
     Position: {x: 0, y: 0, z: 0}

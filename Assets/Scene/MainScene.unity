@@ -3526,8 +3526,12 @@ MonoBehaviour:
   ActiveLevel: {fileID: 0}
   CurrentLevelIndex: 0
   Levels:
+  - {fileID: 11400000, guid: 1298e4e5cfaf9c942952dc116614b9e8, type: 2}
+  - {fileID: 11400000, guid: 493dd8741212700409002026da5e171e, type: 2}
+  - {fileID: 11400000, guid: 835981765353bff498905e1702288601, type: 2}
   - {fileID: 11400000, guid: 8925c8dc3dfbe2f4ca48e3f39cffdc57, type: 2}
-  - {fileID: 11400000, guid: 8925c8dc3dfbe2f4ca48e3f39cffdc57, type: 2}
+  - {fileID: 11400000, guid: 56a795615a4110749b98adf2871cd00a, type: 2}
+  - {fileID: 11400000, guid: 1298e4e5cfaf9c942952dc116614b9e8, type: 2}
   onLevelComplete:
     m_PersistentCalls:
       m_Calls:
