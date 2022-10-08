@@ -10,6 +10,7 @@ public class PassAreaModel : ObjectModel
     [SerializeField] private TextMeshPro passedCounterText;
     [SerializeField] private PassAreaVisualModel passAreaVisualModel;
     [SerializeField] private Animator animator;
+    [SerializeField] private ReactionScreen reaction;
     private List<PickableModel> pickables;
 
     public override void Initialize()
@@ -31,6 +32,7 @@ public class PassAreaModel : ObjectModel
 
     public void OnPassedArea()
     {
+        reaction.ShowReaction();
         passAreaVisualModel.OnPassed();
         animator.Play("OnPass", 0, 0);
         for (int i = 0; i < pickables.Count; i++)
