@@ -168,7 +168,6 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("Levels are editable after load.");
         EditorGUILayout.Space(10);
-        EditorGUILayout.LabelField("TEST");
         EditorGUILayout.Space(10);
 
         EditorGUILayout.LabelField("Close Loaded Level");
@@ -295,6 +294,9 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.LabelField("Pass Area Settings");
+        EditorGUILayout.Space(5);
+        EditorGUILayout.LabelField("Area Complete Counts");
+        EditorGUILayout.Space(5);
         EditorGUILayout.BeginHorizontal();
         showAreas = EditorGUILayout.Foldout(showAreas, "Show Areas");
         EditorGUILayout.Space(5);
@@ -556,7 +558,10 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.LabelField("Step 2: Once you load level, page will changes automatically to edit page.", instructionStyle);
         EditorGUILayout.LabelField("Step 3: Edit level variables.", instructionStyle);
         EditorGUILayout.LabelField("Step 4: Then go Setting page and Save Level.", instructionStyle);
-        EditorGUILayout.Space(10);
+        EditorGUILayout.Space(25);
+        EditorGUILayout.LabelField("Note: Level Editor works on bezier system.", instructionStyle);
+        EditorGUILayout.LabelField("Every object except roads spawns on bezier.", instructionStyle);
+        EditorGUILayout.LabelField("Object's position calculates automatically.", instructionStyle);
     }
 
     private void initInstruction()
