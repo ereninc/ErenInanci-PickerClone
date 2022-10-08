@@ -9,10 +9,10 @@ public class ReactionModel : ObjectModel
     {
         this.SetActiveGameObject(true);
         animator.Play("Intro", 0, 0);
-        Invoke(nameof(Hide), 1f);
+        Invoke(nameof(hide), 1.5f);
     }
 
-    public void Hide() 
+    private void hide() 
     {
         animator.Play("Outro", 0, 0);
     }
