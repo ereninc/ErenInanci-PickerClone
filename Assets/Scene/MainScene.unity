@@ -354,7 +354,7 @@ Camera:
   m_GameObject: {fileID: 12423108}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -2580,8 +2580,8 @@ MonoBehaviour:
   ActiveLevel: {fileID: 0}
   CurrentLevelIndex: 0
   Levels:
-  - {fileID: 11400000, guid: 493dd8741212700409002026da5e171e, type: 2}
-  - {fileID: 11400000, guid: 835981765353bff498905e1702288601, type: 2}
+  - {fileID: 11400000, guid: 8925c8dc3dfbe2f4ca48e3f39cffdc57, type: 2}
+  - {fileID: 11400000, guid: 8925c8dc3dfbe2f4ca48e3f39cffdc57, type: 2}
   onLevelComplete:
     m_PersistentCalls:
       m_Calls:
@@ -13969,7 +13969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1201186239
 Transform:
   m_ObjectHideFlags: 0
@@ -20590,8 +20590,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684089350}
-  m_LocalRotation: {x: 0.21815279, y: 0.0000000145422625, z: -0.0000000032507301,
-    w: 0.97591466}
+  m_LocalRotation: {x: 0.2181528, y: -8.026101e-16, z: 1.08900604e-16, w: 0.97591466}
   m_LocalPosition: {x: 0, y: 8.8, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -26105,8 +26104,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124040333}
-  m_LocalRotation: {x: 0.21815279, y: 0.0000000145422625, z: -0.0000000032507301,
-    w: 0.97591466}
+  m_LocalRotation: {x: 0.2181528, y: -8.026101e-16, z: 1.08900604e-16, w: 0.97591466}
   m_LocalPosition: {x: 0, y: 8.8, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

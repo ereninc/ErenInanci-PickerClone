@@ -176,7 +176,6 @@ public class WorldItemSpawnController : ControllerBaseModel
             for (int j = roadlineDataIndex[i]; j < maxItemCount; j++)
             {
                 Vector3 pos = dataModel.GetSpawnPosition(maxItemCount, j) + lastLevelPosition;
-
                 if (Mathf.Abs(playerPos - pos.z) < GameValues.RoadItemSpawnDistance)
                 {
                     roadlineDataIndex[i] = j + 1;
