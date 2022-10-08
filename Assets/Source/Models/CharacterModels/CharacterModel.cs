@@ -5,7 +5,8 @@ using UnityEngine;
 public class CharacterModel : ObjectModel
 {
     [SerializeField] private LevelBarController levelBarController;
-    [SerializeField] private UpgradeModel upgradeModel;
+    [SerializeField] private UpgradeController upgradeModel;
+    private int upgradeIndex;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,7 +22,8 @@ public class CharacterModel : ObjectModel
             case "PowerUp":
                 PowerUpModel powerUp = other.GetComponent<PowerUpModel>();
                 powerUp.OnCollect();
-                onUpgradeStart();
+                upgradeIndex = powerUp.Id;
+                onUpgradeStart(upgradeIndex);
                 break;
             default:
                 break;
@@ -37,7 +39,7 @@ public class CharacterModel : ObjectModel
 
     private void onEnterPassArea(PassAreaModel passArea)
     {
-        onUpgradeEnd();
+        onUpgradeEnd(upgradeIndex);
         PlayerController.Instance.OnEnterPassArea();
         this.Invoke(() => checkArea(passArea), 2.5f);
     }
@@ -63,13 +65,13 @@ public class CharacterModel : ObjectModel
         }
     }
 
-    private void onUpgradeStart() 
+    private void onUpgradeStart(int index) 
     { 
-        upgradeModel.OnStart();
+        upgradeModel.OnStart(index);
     }
 
-    private void onUpgradeEnd()
+    private void onUpgradeEnd(int index)
     {
-        upgradeModel.OnEnd();
+        upgradeModel.OnEnd(index);
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53403452db7148a4c948c330b14eca89, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  Name: Level1
+  Name: Entry
   RoadDatas:
   - Type: 0
     Position: {x: 0, y: 0, z: 0}
@@ -83,3 +83,12 @@ MonoBehaviour:
     MaxItemCount: 15
     IncPerLevelCount: 0
     StartItemCount: 15
+  - Id: 1
+    Type: 1
+    StartPoint: {x: 0, y: 1, z: 4}
+    EndPoint: {x: 0, y: 1, z: 4}
+    ControlPointA: {x: 0, y: 1, z: 4}
+    ControlPointB: {x: 0, y: 1, z: 4}
+    MaxItemCount: 1
+    IncPerLevelCount: 0
+    StartItemCount: 1

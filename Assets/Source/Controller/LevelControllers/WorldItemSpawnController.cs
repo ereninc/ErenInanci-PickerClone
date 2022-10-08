@@ -209,6 +209,6 @@ public class WorldItemSpawnController : ControllerBaseModel
     private void spawnPowerUp(int id, Vector3 pos)
     {
         PowerUpModel powerUp = powerUpPool.GetDeactiveItem<PowerUpModel>();
-        powerUp.OnSpawn(pos);
+        powerUp.OnSpawn(pos, id);
     }
 }

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeModel : ObjectModel
+public class PowerUpTypeModel : ObjectModel
 {
-    public void OnActive()
+    public void OnActivate() 
     { 
-        this.SetActiveGameObject(true);
+        this.SetActiveGameObject(true); 
     }
 
     public void OnDeactive() 
-    {
+    { 
         this.SetActiveGameObject(false); 
     }
 }
