@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CharacterModel : ObjectModel
 {
-    [SerializeField] private FinishModel finishline;
     [SerializeField] private LevelBarController levelBarController;
 
     private void OnTriggerEnter(Collider other)
@@ -13,11 +12,15 @@ public class CharacterModel : ObjectModel
         {
             case "PassArea":
                 PassAreaModel passArea = other.GetComponent<PassAreaModel>();
-                onEnterPassArea();
-                this.Invoke(() => checkArea(passArea), 2.5f);
+                onEnterPassArea(passArea);
                 break;
             case "Finish":
                 onLevelCompleted();
+                break;
+            case "PowerUp":
+                UpgradeModel upgrade = other.GetComponent<UpgradeModel>();
+                upgrade.SetActiveGameObject(false);
+                Debug.Log("UPGRADED");
                 break;
             default:
                 break;
@@ -31,9 +34,10 @@ public class CharacterModel : ObjectModel
         GameController.ChangeState(GameStates.Win);
     }
 
-    private void onEnterPassArea()
+    private void onEnterPassArea(PassAreaModel passArea)
     {
         PlayerController.Instance.OnEnterPassArea();
+        this.Invoke(() => checkArea(passArea), 2.5f);
     }
 
     private void onExitPassArea() 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pickable
   - PassArea
+  - PowerUp
   layers:
   - Default
   - TransparentFX

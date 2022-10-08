@@ -7,6 +7,7 @@ public class WorldItemSpawnController : ControllerBaseModel
     [SerializeField] private MultiplePoolModel roadPools;
     [SerializeField] private PoolModel passAreaPool;
     [SerializeField] private PoolModel pickableModelPool;
+    [SerializeField] private PoolModel powerUpModelPool;
     [SerializeField] private FinishController finishController;
     private LevelModel activeLevel;
     private int roadIndex;
@@ -78,10 +79,10 @@ public class WorldItemSpawnController : ControllerBaseModel
                         switch (dataModel.Type)
                         {
                             case RoadItemType.Pickable:
-                                spawnPickable(dataModel.Id/*, value*/, pos);
+                                spawnPickable(dataModel.Id, pos);
                                 break;
                             case RoadItemType.PowerUp:
-                                //spawnPowerUp(dataModel.Id, pos);
+                                spawnPowerUp(dataModel.Id, pos);
                                 break;
                             default:
                                 break;
@@ -207,8 +208,7 @@ public class WorldItemSpawnController : ControllerBaseModel
 
     private void spawnPowerUp(int id, Vector3 pos)
     {
-        //PowerUpModel powerUp = PowerUpPools.Pools[id].GetDeactiveItem() as PowerUpModel;
-        //powerUp.Spawn(pos);
-
+        UpgradeModel powerUp = powerUpModelPool.GetDeactiveItem<UpgradeModel>();
+        powerUp.OnSpawn(pos);
     }
 }

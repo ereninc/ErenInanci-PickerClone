@@ -540,7 +540,6 @@ public class LevelEditor : EditorWindow
             }
             EditorGUI.indentLevel--;
         }
-
     }
 
     private void showInstruction()
