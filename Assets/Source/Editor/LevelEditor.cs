@@ -17,6 +17,7 @@ public class LevelEditor : EditorWindow
     private int createRoadCount;
     private int passAreaCount;
     private GUIStyle instructionStyle;
+    private GUIStyle noteStyle;
 
     [MenuItem("Level Editor/Editor")]
     static void Init()
@@ -548,20 +549,20 @@ public class LevelEditor : EditorWindow
     {
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("LEVEL CREATION INSTRUCTIONS", instructionStyle);
-        EditorGUILayout.LabelField("Step 1: To create level, go to Edit or Create Level Page", instructionStyle);
+        EditorGUILayout.LabelField("Step 1: To create level, go to *Edit or Create Level* Page", instructionStyle);
         EditorGUILayout.LabelField("Step 2: Create Level and edit variables.", instructionStyle);
-        EditorGUILayout.LabelField("Step 3: Then go Setting page and Save Level.", instructionStyle);
+        EditorGUILayout.LabelField("Step 3: Then go *Setting* page and Save Level.", instructionStyle);
 
         EditorGUILayout.Space(25);
         EditorGUILayout.LabelField("LEVEL EDIT INSTRUCTIONS", instructionStyle);
-        EditorGUILayout.LabelField("Step 1: To edit level, Load Level from Setting page", instructionStyle);
+        EditorGUILayout.LabelField("Step 1: To edit level, *Load Level* from *Setting* page", instructionStyle);
         EditorGUILayout.LabelField("Step 2: Once you load level, page will changes automatically to edit page.", instructionStyle);
-        EditorGUILayout.LabelField("Step 3: Edit level variables.", instructionStyle);
-        EditorGUILayout.LabelField("Step 4: Then go Setting page and Save Level.", instructionStyle);
+        EditorGUILayout.LabelField("Step 3: Edit level variables or drag gizmos from Scene.", instructionStyle);
+        EditorGUILayout.LabelField("Step 4: Then go Setting page and *Save Level*.", instructionStyle);
         EditorGUILayout.Space(25);
-        EditorGUILayout.LabelField("Note: Level Editor works on bezier system.", instructionStyle);
-        EditorGUILayout.LabelField("Every object except roads spawns on bezier.", instructionStyle);
-        EditorGUILayout.LabelField("Object's position calculates automatically.", instructionStyle);
+        EditorGUILayout.LabelField("Note: Level Editor works on bezier system.", noteStyle);
+        EditorGUILayout.LabelField("Every object except roads spawns on bezier curved line.", noteStyle);
+        EditorGUILayout.LabelField("Object's position calculates automatically with 2 control points.", noteStyle);
     }
 
     private void initInstruction()
@@ -571,6 +572,11 @@ public class LevelEditor : EditorWindow
         instructionStyle.normal.textColor = Color.red;
         instructionStyle.fontSize = 18;
         instructionStyle.fontStyle = FontStyle.Bold;
+
+        noteStyle = new GUIStyle();
+        noteStyle.normal.textColor = Color.white;
+        noteStyle.fontSize = 18;
+        noteStyle.fontStyle = FontStyle.Italic;
     }
 
     #endregion
