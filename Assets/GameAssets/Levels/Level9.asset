@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53403452db7148a4c948c330b14eca89, type: 3}
-  m_Name: Level5
+  m_Name: Level9
   m_EditorClassIdentifier: 
-  Name: Level5
+  Name: Level9
   RoadDatas:
   - Type: 0
     Position: {x: 0, y: 0, z: 0}
@@ -36,7 +36,7 @@ MonoBehaviour:
     Position: {x: 0, y: 0, z: 195}
   - Type: 0
     Position: {x: 0, y: 0, z: 225}
-  PassAreaCounts: 2d0000002300000032000000
+  PassAreaCounts: 2d000000280000002d000000
   LineDatas:
   - Id: 0
     Type: 0
@@ -58,10 +58,10 @@ MonoBehaviour:
     StartItemCount: 10
   - Id: 0
     Type: 0
-    StartPoint: {x: 0, y: 0.625, z: 10}
-    EndPoint: {x: 0, y: 0.625, z: 20}
-    ControlPointA: {x: 0, y: 0.625, z: 10}
-    ControlPointB: {x: 0, y: 0.625, z: 20}
+    StartPoint: {x: 0, y: 0.625, z: 14}
+    EndPoint: {x: 0, y: 0.625, z: 24}
+    ControlPointA: {x: 0, y: 0.625, z: 14}
+    ControlPointB: {x: 0, y: 0.625, z: 24}
     MaxItemCount: 10
     IncPerLevelCount: 0
     StartItemCount: 10
@@ -95,9 +95,9 @@ MonoBehaviour:
   - Id: 0
     Type: 0
     StartPoint: {x: 0, y: 0.625, z: 28}
-    EndPoint: {x: 0, y: 0.625, z: 38}
+    EndPoint: {x: 0, y: 0.625, z: 36}
     ControlPointA: {x: 0, y: 0.625, z: 28}
-    ControlPointB: {x: 0, y: 0.625, z: 38}
+    ControlPointB: {x: 0, y: 0.625, z: 36}
     MaxItemCount: 10
     IncPerLevelCount: 0
     StartItemCount: 10
@@ -155,3 +155,12 @@ MonoBehaviour:
     MaxItemCount: 30
     IncPerLevelCount: 0
     StartItemCount: 30
+  - Id: 0
+    Type: 0
+    StartPoint: {x: 1, y: 0.625, z: 25}
+    EndPoint: {x: -1, y: 0.625, z: 25}
+    ControlPointA: {x: 0, y: 0.625, z: 25}
+    ControlPointB: {x: 0, y: 0.625, z: 25}
+    MaxItemCount: 10
+    IncPerLevelCount: 0
+    StartItemCount: 10

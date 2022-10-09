@@ -36,122 +36,185 @@ MonoBehaviour:
     Position: {x: 0, y: 0, z: 195}
   - Type: 0
     Position: {x: 0, y: 0, z: 225}
-  PassAreaCounts: 2d0000002300000032000000
+  PassAreaCounts: 2d000000370000003c000000
   LineDatas:
   - Id: 0
     Type: 0
-    StartPoint: {x: 1, y: 0.625, z: 12}
-    EndPoint: {x: 1, y: 0.625, z: 22}
-    ControlPointA: {x: 1, y: 0.625, z: 12}
-    ControlPointB: {x: 1, y: 0.625, z: 22}
+    StartPoint: {x: 1, y: 0.625, z: 8}
+    EndPoint: {x: 1, y: 0.625, z: 16}
+    ControlPointA: {x: 1, y: 0.625, z: 11}
+    ControlPointB: {x: 1, y: 0.625, z: 14}
     MaxItemCount: 10
     IncPerLevelCount: 0
     StartItemCount: 10
   - Id: 0
     Type: 0
-    StartPoint: {x: -1, y: 0.625, z: 12}
-    EndPoint: {x: -1, y: 0.625, z: 22}
-    ControlPointA: {x: -1, y: 0.625, z: 12}
+    StartPoint: {x: 0.5, y: 0.625, z: 8}
+    EndPoint: {x: 0.5, y: 0.625, z: 16}
+    ControlPointA: {x: 0.5, y: 0.625, z: 11}
+    ControlPointB: {x: 0.5, y: 0.625, z: 14}
+    MaxItemCount: 10
+    IncPerLevelCount: 0
+    StartItemCount: 10
+  - Id: 0
+    Type: 0
+    StartPoint: {x: -1, y: 0.625, z: 16}
+    EndPoint: {x: -1, y: 0.625, z: 24}
+    ControlPointA: {x: -1, y: 0.625, z: 19}
     ControlPointB: {x: -1, y: 0.625, z: 22}
     MaxItemCount: 10
     IncPerLevelCount: 0
     StartItemCount: 10
   - Id: 0
     Type: 0
-    StartPoint: {x: 0, y: 0.625, z: 10}
-    EndPoint: {x: 0, y: 0.625, z: 20}
-    ControlPointA: {x: 0, y: 0.625, z: 10}
-    ControlPointB: {x: 0, y: 0.625, z: 20}
+    StartPoint: {x: -0.5, y: 0.625, z: 16}
+    EndPoint: {x: -0.5, y: 0.625, z: 24}
+    ControlPointA: {x: -0.5, y: 0.625, z: 19}
+    ControlPointB: {x: -0.5, y: 0.625, z: 22}
     MaxItemCount: 10
     IncPerLevelCount: 0
     StartItemCount: 10
-  - Id: 0
-    Type: 1
-    StartPoint: {x: 0, y: 1, z: 6}
-    EndPoint: {x: 0, y: 1, z: 6}
-    ControlPointA: {x: 0, y: 1, z: 6}
-    ControlPointB: {x: 0, y: 1, z: 6}
-    MaxItemCount: 1
-    IncPerLevelCount: 0
-    StartItemCount: 1
   - Id: 0
     Type: 0
     StartPoint: {x: 1, y: 0.625, z: 30}
-    EndPoint: {x: 1, y: 0.625, z: 40}
+    EndPoint: {x: 1, y: 0.625, z: 35}
     ControlPointA: {x: 1, y: 0.625, z: 30}
-    ControlPointB: {x: 1, y: 0.625, z: 40}
-    MaxItemCount: 10
+    ControlPointB: {x: 1, y: 0.625, z: 35}
+    MaxItemCount: 6
     IncPerLevelCount: 0
-    StartItemCount: 10
+    StartItemCount: 6
+  - Id: 0
+    Type: 0
+    StartPoint: {x: 0.5, y: 0.625, z: 30}
+    EndPoint: {x: 0.5, y: 0.625, z: 35}
+    ControlPointA: {x: 0.5, y: 0.625, z: 30}
+    ControlPointB: {x: 0.5, y: 0.625, z: 35}
+    MaxItemCount: 6
+    IncPerLevelCount: 0
+    StartItemCount: 6
+  - Id: 0
+    Type: 0
+    StartPoint: {x: 0, y: 0.625, z: 30}
+    EndPoint: {x: 0, y: 0.625, z: 35}
+    ControlPointA: {x: 0, y: 0.625, z: 30}
+    ControlPointB: {x: 0, y: 0.625, z: 35}
+    MaxItemCount: 6
+    IncPerLevelCount: 0
+    StartItemCount: 6
+  - Id: 0
+    Type: 0
+    StartPoint: {x: -0.5, y: 0.625, z: 30}
+    EndPoint: {x: -0.5, y: 0.625, z: 35}
+    ControlPointA: {x: -0.5, y: 0.625, z: 30}
+    ControlPointB: {x: -0.5, y: 0.625, z: 35}
+    MaxItemCount: 6
+    IncPerLevelCount: 0
+    StartItemCount: 6
   - Id: 0
     Type: 0
     StartPoint: {x: -1, y: 0.625, z: 30}
-    EndPoint: {x: -1, y: 0.625, z: 40}
+    EndPoint: {x: -1, y: 0.625, z: 35}
     ControlPointA: {x: -1, y: 0.625, z: 30}
-    ControlPointB: {x: -1, y: 0.625, z: 40}
-    MaxItemCount: 10
+    ControlPointB: {x: -1, y: 0.625, z: 35}
+    MaxItemCount: 6
     IncPerLevelCount: 0
-    StartItemCount: 10
+    StartItemCount: 6
   - Id: 0
-    Type: 0
-    StartPoint: {x: 0, y: 0.625, z: 28}
-    EndPoint: {x: 0, y: 0.625, z: 38}
-    ControlPointA: {x: 0, y: 0.625, z: 28}
-    ControlPointB: {x: 0, y: 0.625, z: 38}
-    MaxItemCount: 10
-    IncPerLevelCount: 0
-    StartItemCount: 10
-  - Id: 1
     Type: 1
-    StartPoint: {x: 0, y: 1, z: 53}
-    EndPoint: {x: 0, y: 1, z: 53}
-    ControlPointA: {x: 0, y: 1, z: 53}
-    ControlPointB: {x: 0, y: 1, z: 53}
+    StartPoint: {x: 0, y: 1, z: 5}
+    EndPoint: {x: 0, y: 1, z: 5}
+    ControlPointA: {x: 0, y: 1, z: 5}
+    ControlPointB: {x: 0, y: 1, z: 5}
     MaxItemCount: 1
     IncPerLevelCount: 0
     StartItemCount: 1
   - Id: 0
     Type: 0
-    StartPoint: {x: 1.25, y: 0.625, z: 55}
-    EndPoint: {x: -1.25, y: 0.625, z: 105}
-    ControlPointA: {x: 1.25, y: 0.625, z: 55}
-    ControlPointB: {x: -1.25, y: 0.625, z: 105}
+    StartPoint: {x: -0.5, y: 0.625, z: 55}
+    EndPoint: {x: -0.5, y: 0.625, z: 105}
+    ControlPointA: {x: -5, y: 0.625, z: 70}
+    ControlPointB: {x: 5, y: 0.625, z: 90}
     MaxItemCount: 20
     IncPerLevelCount: 0
     StartItemCount: 20
   - Id: 0
     Type: 0
-    StartPoint: {x: -1.25, y: 0.625, z: 55}
-    EndPoint: {x: 1.25, y: 0.625, z: 105}
-    ControlPointA: {x: -1.25, y: 0.625, z: 55}
-    ControlPointB: {x: 1.25, y: 0.625, z: 105}
+    StartPoint: {x: 0.5, y: 0.625, z: 55}
+    EndPoint: {x: 0.5, y: 0.625, z: 105}
+    ControlPointA: {x: -5, y: 0.625, z: 70}
+    ControlPointB: {x: 5, y: 0.625, z: 90}
     MaxItemCount: 20
     IncPerLevelCount: 0
     StartItemCount: 20
+  - Id: 0
+    Type: 0
+    StartPoint: {x: 1, y: 0.625, z: 60}
+    EndPoint: {x: 1, y: 0.625, z: 70}
+    ControlPointA: {x: 1, y: 0.625, z: 60}
+    ControlPointB: {x: 1, y: 0.625, z: 70}
+    MaxItemCount: 10
+    IncPerLevelCount: 0
+    StartItemCount: 10
+  - Id: 0
+    Type: 0
+    StartPoint: {x: -1, y: 0.625, z: 90}
+    EndPoint: {x: -1, y: 0.625, z: 105}
+    ControlPointA: {x: -1, y: 0.625, z: 90}
+    ControlPointB: {x: -1, y: 0.625, z: 105}
+    MaxItemCount: 10
+    IncPerLevelCount: 0
+    StartItemCount: 10
   - Id: 1
     Type: 1
-    StartPoint: {x: 0, y: 1, z: 120}
-    EndPoint: {x: 0, y: 1, z: 120}
-    ControlPointA: {x: 0, y: 1, z: 120}
-    ControlPointB: {x: 0, y: 1, z: 120}
+    StartPoint: {x: 0, y: 1, z: 55}
+    EndPoint: {x: 0, y: 1, z: 55}
+    ControlPointA: {x: 0, y: 1, z: 55}
+    ControlPointB: {x: 0, y: 1, z: 55}
     MaxItemCount: 1
     IncPerLevelCount: 0
     StartItemCount: 1
   - Id: 0
     Type: 0
-    StartPoint: {x: 0, y: 0.625, z: 130}
-    EndPoint: {x: 0, y: 0.625, z: 130}
-    ControlPointA: {x: -5, y: 0.625, z: 160}
-    ControlPointB: {x: 5, y: 0.625, z: 160}
-    MaxItemCount: 30
-    IncPerLevelCount: 0
-    StartItemCount: 30
-  - Id: 0
-    Type: 0
-    StartPoint: {x: 0, y: 0.625, z: 170}
+    StartPoint: {x: 0, y: 0.625, z: 125}
     EndPoint: {x: 0, y: 0.625, z: 170}
-    ControlPointA: {x: -5, y: 0.625, z: 140}
-    ControlPointB: {x: 5, y: 0.625, z: 140}
-    MaxItemCount: 30
+    ControlPointA: {x: 0, y: 0.625, z: 125}
+    ControlPointB: {x: 0, y: 0.625, z: 170}
+    MaxItemCount: 20
     IncPerLevelCount: 0
-    StartItemCount: 30
+    StartItemCount: 20
+  - Id: 0
+    Type: 0
+    StartPoint: {x: -0.5, y: 0.625, z: 125}
+    EndPoint: {x: -0.5, y: 0.625, z: 170}
+    ControlPointA: {x: -0.5, y: 0.625, z: 125}
+    ControlPointB: {x: -0.5, y: 0.625, z: 170}
+    MaxItemCount: 20
+    IncPerLevelCount: 0
+    StartItemCount: 20
+  - Id: 0
+    Type: 0
+    StartPoint: {x: 0.5, y: 0.625, z: 125}
+    EndPoint: {x: 0.5, y: 0.625, z: 170}
+    ControlPointA: {x: 0.5, y: 0.625, z: 125}
+    ControlPointB: {x: 0.5, y: 0.625, z: 170}
+    MaxItemCount: 20
+    IncPerLevelCount: 0
+    StartItemCount: 20
+  - Id: 0
+    Type: 0
+    StartPoint: {x: 1, y: 0.625, z: 125}
+    EndPoint: {x: 1, y: 0.625, z: 170}
+    ControlPointA: {x: 1, y: 0.625, z: 125}
+    ControlPointB: {x: 1, y: 0.625, z: 170}
+    MaxItemCount: 20
+    IncPerLevelCount: 0
+    StartItemCount: 20
+  - Id: 0
+    Type: 0
+    StartPoint: {x: -1, y: 0.625, z: 125}
+    EndPoint: {x: -1, y: 0.625, z: 170}
+    ControlPointA: {x: -1, y: 0.625, z: 125}
+    ControlPointB: {x: -1, y: 0.625, z: 170}
+    MaxItemCount: 20
+    IncPerLevelCount: 0
+    StartItemCount: 20
