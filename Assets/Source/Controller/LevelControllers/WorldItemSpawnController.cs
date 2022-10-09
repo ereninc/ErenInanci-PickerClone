@@ -11,7 +11,6 @@ public class WorldItemSpawnController : ControllerBaseModel
     [SerializeField] private FinishController finishController;
     private LevelModel activeLevel;
     private int roadIndex;
-    private RoadModel lastSpawnedRoad;
     private Vector3 lastLevelPosition;
     private int passAreaIndex;
     private List<int> roadlineDataIndex;
@@ -44,8 +43,6 @@ public class WorldItemSpawnController : ControllerBaseModel
                             RoadModel road = roadPools.GetDeactiveItem<RoadModel>(0);
                             Vector3 roadSpawnPos = lastLevelPosition + activeLevel.RoadDatas[i].Position;
                             road.OnSpawn(roadSpawnPos);
-                            lastSpawnedRoad.NextRoad = road;
-                            lastSpawnedRoad = road;
                             break;
                         case WorldItemType.PassArea:
                             roadIndex = 1 + i;
@@ -69,11 +66,9 @@ public class WorldItemSpawnController : ControllerBaseModel
                 LineDataModel dataModel = activeLevel.LineDatas[i];
                 int maxItemCount = dataModel.GetItemCount(PlayerDataModel.Data.CompletedLevelCount);
                 maxItemCount = maxItemCount == 0 ? 1 : maxItemCount;
-
                 for (int j = roadlineDataIndex[i]; j < maxItemCount; j++)
                 {
                     Vector3 pos = dataModel.GetSpawnPosition(maxItemCount, j) + lastLevelPosition;
-
                     if (Mathf.Abs(playerZPos - pos.z) < GameValues.RoadItemSpawnDistance)
                     {
                         roadlineDataIndex[i] = j + 1;
@@ -124,13 +119,12 @@ public class WorldItemSpawnController : ControllerBaseModel
     {
         lastLevelPosition = Vector3.zero;
         activeLevel = LevelController.Instance.Levels[levelIndex];
-        float playerPos = PlayerController.Instance.transform.position.z;
-        RoadModel firstRoad = null;
+        playerZPos = PlayerController.Instance.transform.position.z;
         roadlineDataIndex = new List<int>();
 
         for (int i = 0; i < activeLevel.RoadDatas.Count; i++)
         {
-            if (Mathf.Abs(playerPos - (activeLevel.RoadDatas[roadIndex].Position.z + lastLevelPosition.z)) < GameValues.LevelSpawnDistance)
+            if (Mathf.Abs(playerZPos - (activeLevel.RoadDatas[roadIndex].Position.z + lastLevelPosition.z)) < GameValues.LevelSpawnDistance)
             {
                 switch (activeLevel.RoadDatas[i].Type)
                 {
@@ -139,15 +133,6 @@ public class WorldItemSpawnController : ControllerBaseModel
                         RoadModel road = roadPools.GetDeactiveItem<RoadModel>(0);
                         Vector3 roadSpawnPos = lastLevelPosition + activeLevel.RoadDatas[i].Position;
                         road.OnSpawn(roadSpawnPos);
-                        if (lastSpawnedRoad != null)
-                        {
-                            lastSpawnedRoad.NextRoad = road;
-                        }
-                        else
-                        {
-                            firstRoad = road;
-                        }
-                        lastSpawnedRoad = road;
                         break;
                     case WorldItemType.PassArea:
                         roadIndex = i + 1;
@@ -172,11 +157,10 @@ public class WorldItemSpawnController : ControllerBaseModel
             LineDataModel dataModel = activeLevel.LineDatas[i];
             int maxItemCount = dataModel.GetItemCount(PlayerDataModel.Data.CompletedLevelCount);
             maxItemCount = maxItemCount == 0 ? 1 : maxItemCount;
-
             for (int j = roadlineDataIndex[i]; j < maxItemCount; j++)
             {
                 Vector3 pos = dataModel.GetSpawnPosition(maxItemCount, j) + lastLevelPosition;
-                if (Mathf.Abs(playerPos - pos.z) < GameValues.RoadItemSpawnDistance)
+                if (Mathf.Abs(playerZPos - pos.z) < GameValues.RoadItemSpawnDistance)
                 {
                     roadlineDataIndex[i] = j + 1;
                     switch (dataModel.Type)

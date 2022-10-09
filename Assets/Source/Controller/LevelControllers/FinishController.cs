@@ -22,7 +22,6 @@ public class FinishController : ControllerBaseModel
 
     public void SetFinishLine(Vector3 pos)
     {
-        finishModel.transform.SetActiveGameObject(true);
-        finishModel.transform.position = pos;
+        finishModel.OnSpawn(pos);
     }
 }

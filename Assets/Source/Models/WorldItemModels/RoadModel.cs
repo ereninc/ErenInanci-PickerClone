@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RoadModel : ObjectModel
 {
-    public RoadModel NextRoad;
-
     public void OnSpawn(Vector3 pos)
     {
         transform.position = pos;
